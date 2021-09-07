@@ -14,7 +14,5 @@ module.exports = withPlugins([
     optimizeImages: false,
   }],
   [withMDX,{pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']}],
-  [{future: {
-	  webpack5: true
-  }}]
+  [{webpack5: true}]
 ])
