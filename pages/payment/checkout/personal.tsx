@@ -44,19 +44,13 @@ export default function Checkout() {
     }, [])
 
     return (
-        <CheckoutLayout>
+        <CheckoutLayout checkoutType="personal">
             <form onSubmit={handleSubmit(onSubmit)} >
-                <div className="pl-20 pr-20 md:px-32 lg:px-64">
-                    <h1 className="text-3xl font-bold text-gray-600 py-10">Kubernetic Desktop checkout</h1>
-
-                    <PaymentTabs checkoutType="personal" />
-
-                    <YourOrderSection register={register} watch={watch} checkoutType="personal" />
-                    <div className="pt-20 pb-20">
-                        <button type="submit" value="submit" className="btn btn-blue btn-popup float-right rounded py-3 px-8 w-40"  >
-                            {clicked ? "Loading..." : "Next"}
-                        </button>
-                    </div>
+                <YourOrderSection register={register} watch={watch} checkoutType="personal" />
+                <div className="pt-20 pb-20">
+                    <button type="submit" value="submit" className="btn btn-blue btn-popup float-right rounded py-3 px-8 w-40"  >
+                        {clicked ? "Loading..." : "Next"}
+                    </button>
                 </div>
             </form>
         </CheckoutLayout>

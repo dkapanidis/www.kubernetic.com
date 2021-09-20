@@ -6,7 +6,7 @@ import CountryField, { isEuropeanCountry } from "./CountryField";
 type YourOrderSectionProps = {
     register: any,
     watch: any,
-    checkoutType: "personal" | "comercial"
+    checkoutType: "personal" | "commercial"
 }
 export default function YourOrderSection({ register, watch, checkoutType }: YourOrderSectionProps) {
     const licenses = watch("licenses")
@@ -20,20 +20,20 @@ export default function YourOrderSection({ register, watch, checkoutType }: Your
 
     // Calculate TaxPercent
     useEffect(() => {
-        // COMERCIAL LICENSES
+        // COMMERCIAL LICENSES
 
         // On Spain Tax is not excluded, so we collect 21%
-        if (checkoutType === "comercial" && country === "Spain") {
+        if (checkoutType === "commercial" && country === "Spain") {
             setTaxPercent(21)
             return
         }
         // On other EU countries we don't collect Tax
-        if (checkoutType === "comercial" && isEuropeanCountry(country)) {
+        if (checkoutType === "commercial" && isEuropeanCountry(country)) {
             setTaxPercent(0)
             return
         }
         // On the rest of the countries we don't collect Tax
-        if (checkoutType === "comercial") {
+        if (checkoutType === "commercial") {
             setTaxPercent(0)
             return
         }

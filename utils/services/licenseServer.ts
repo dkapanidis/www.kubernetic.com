@@ -8,7 +8,7 @@ export type CheckoutForm = {
   licenses: number,
   taxPercent: number,
   type: "desktop" | "team" | "trial",
-  checkoutType: "personal" | "comercial",
+  checkoutType: "personal" | "commercial",
 }
 
 async function createSession(session: CheckoutForm) {
