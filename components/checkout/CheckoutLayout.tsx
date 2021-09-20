@@ -12,7 +12,7 @@ export default function CheckoutLayout({ children, checkoutType }: { children: a
                 <div className="pl-20 pr-20 md:px-32 lg:px-64">
                     <h1 className="text-3xl font-bold text-gray-600 py-4">Kubernetic Desktop checkout</h1>
                     
-                    <h4 className="text-xs font-light text-gray-600 py-4">If the purchase is for an organization please choose below to fill-in the necessary information for the invoice.</h4>
+                    <h4 className="text-xs font-light italic text-gray-600 py-4">If the purchase is for an organization choose below to fill-in the necessary information for the invoice.</h4>
                     
                     <PaymentTabs checkoutType={checkoutType} />
                     {children}
