@@ -9,7 +9,7 @@ export default function Header() {
           <Logo />
           <div className="flex-grow"></div>
           <div className="hidden md:flex items-center justify-end space-x-8 ">
-            <HeaderLink to="/#pricing" title="Pricing" />
+            <HeaderLink to="/pricing" title="Pricing" />
             <HeaderLink to="//docs.kubernetic.com" title="Docs" />
             <HeaderLink to="//docs.kubernetic.com/tutorials/" title="Tutorials" />
             <HeaderLink to="/blog" title="Blog" />
