@@ -19,7 +19,7 @@ const schema = yup.object().shape({
     clientPostalCode: yup.string().optional(),
     country: yup.string().optional(),
     licenses: yup.number().positive().integer().optional(),
-});
+}).required();
 
 export default function Checkout() {
     const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm<CheckoutForm>({

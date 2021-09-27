@@ -12,7 +12,7 @@ const schema = yup.object().shape({
     checkoutType: yup.string().required(),
     country: yup.string().optional(),
     licenses: yup.number().positive().integer().optional(),
-});
+}).required();
 
 export default function Checkout() {
     const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm<CheckoutForm>({

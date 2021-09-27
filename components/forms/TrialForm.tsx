@@ -23,7 +23,7 @@ const COLLECTION = 'trials'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
-  email: yup.string().required(),
+  email: yup.string().required().email(),
   jobTitle: yup.string().required(),
   country: yup.string().required(),
   expectedUsers: yup.number().required(),
@@ -31,7 +31,7 @@ const schema = yup.object().shape({
   gdpr: yup.boolean().optional(),
   terms: yup.boolean().optional(),
   timestamp: yup.string().required(),
-});
+}).required();
 
 export default function TrialForm() {
   const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm<Trial>({
