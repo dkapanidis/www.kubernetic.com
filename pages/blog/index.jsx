@@ -63,6 +63,7 @@ const Blog = () => <Layout title="Blog">
 function importAll(r) {
   return r
     .keys()
+    .filter((filename) => !filename.startsWith('pages'))
     .map((fileName) => ({
       link: "blog/" + fileName.replace(/\/preview\.mdx$/, ''),
       module: r(fileName),

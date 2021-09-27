@@ -36,7 +36,7 @@
     "react-https-redirect": "^1.1.0",
     "react-markdown": "^4.3.1",
     "reactfire": "^4.2.0",
-    "remark": "^13.0.0",
+    "remark": "^14.0.1",
     "remark-emoji": "^2.2.0",
     "remark-images": "^2.0.0",
     "simple-functional-loader": "^1.2.1",
