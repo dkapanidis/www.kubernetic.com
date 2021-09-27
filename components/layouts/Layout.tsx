@@ -2,9 +2,14 @@ import React, { useEffect } from 'react'
 import { initHubspot } from '@utils/hubspot/hubspot'
 import { initGA, logPageView } from '@utils/utils/analytics'
 import Head from 'next/head'
+import { FirestoreProvider, useFirebaseApp } from 'reactfire'
+import { getFirestore } from '@firebase/firestore'
 
 type LayoutProps = { children: any, title: string }
 export default function Layout({ children, title }: LayoutProps) {
+  const app = useFirebaseApp()
+  const firestore = getFirestore(app);
+
   useEffect(() => {
     initHubspot()
     initGA()
@@ -61,7 +66,10 @@ export default function Layout({ children, title }: LayoutProps) {
         <meta property="fb:admins" content="" />
       </Head>
       <div>
-        {children}
+        <FirestoreProvider sdk={firestore}>
+
+          {children}
+        </FirestoreProvider>
       </div>
     </>
   )

@@ -1,6 +1,15 @@
+import { Trial } from "@components/models/Trial";
+import CheckboxField2 from "@components/ui/form/CheckboxField2";
 import InputField from "@components/ui/form/InputField";
+import InputField2 from "@components/ui/form/InputField2";
+import { addDoc, collection } from "@firebase/firestore";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import router from "next/router";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useFirestore } from "reactfire";
+import * as yup from "yup";
 
 const expectedUsersOptions = [
   { key: "1", text: "1", value: "1" },
@@ -10,28 +19,64 @@ const expectedUsersOptions = [
   { key: "50", text: "50", value: "50" },
   { key: "100+", text: "100+", value: "100+" }
 ]
+const COLLECTION = 'trials'
+
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  email: yup.string().required(),
+  jobTitle: yup.string().required(),
+  country: yup.string().required(),
+  expectedUsers: yup.number().required(),
+  phone: yup.string().optional(),
+  gdpr: yup.boolean().optional(),
+  terms: yup.boolean().optional(),
+  timestamp: yup.string().required(),
+});
 
 export default function TrialForm() {
-  const [terms, updateTerms] = useState(false)
-  const [gdpr, updateGDPR] = useState(false)
-  const [expectedUsers, updateExpectedUsers] = useState<string>()
+  const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm<Trial>({
+    defaultValues: {
+      expectedUsers: 1,
+      timestamp: timestampToday(),
+    },
+    mode: 'onBlur',
+    resolver: yupResolver(schema)
+  });
+
+  const terms = watch("terms")
+
+  const col = collection(useFirestore(), COLLECTION);
+
+  async function onSubmit(data: Trial) {
+    console.log("data", data)
+    try {
+      const ref = await addDoc(col, {
+        ...data,
+        timestamp: new Date(data.timestamp),
+      });
+      console.log(ref)
+      router.push("/")
+    } catch (error) {
+      // nothing but void
+    }
+  }
 
   return (
     <div className="p-10 text-left border shadow-xl rounded-lg border-blue-500">
       <h3>Get Started with Kubernetic Team in minutes</h3>
 
       <p className="pt-5 pb-5 font-extralight">After signing up, we will send you a trial license which will be active for 30 days with seats for 10 users. Once you get your license you can follow the installation process in <Link href="https://docs.kubernetic.com/installation/team"><a>our guide</a></Link>.</p>
-      <form name="enterprise-trial" method="POST" aria-disabled={true} data-netlify="true">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h6 className="pt-4 pb-2 underline">Trial Details</h6>
-        <InputField label="Your Name" name="name" required/>
-        <InputField label="Company Email" name="email" required/>
-        <InputField label="Job Title" name="job-title" required/>
+        <InputField2 errors={errors} register={register} name="name" label="Your Name" required />
+        <InputField2 errors={errors} register={register} name="email" label="Company Email" required />
+        <InputField2 errors={errors} register={register} name="jobTitle" label="Job Title" required />
         <h6 className="pt-4 pb-2 underline">Organization</h6>
-        <InputField label="Country" name="country" required/>
+        <InputField2 errors={errors} register={register} name="country" label="Country" required />
         <div className="inline-block relative w-full required field">
           <label>Expected Users</label>
           <div className="relative">
-            <select className="block appearance-none w-full bg-white border hover:border-gray-500 px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:border focus:border-blue-400" name="expected-users" id="expected-users" onChange={(e) => updateExpectedUsers(e.currentTarget.value)}>
+            <select className="block appearance-none w-full bg-white border hover:border-gray-500 px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:border focus:border-blue-400" {...register("expectedUsers")}>
               <option value="1">1</option>
               <option value="5">5</option>
               <option value="10">10</option>
@@ -46,21 +91,30 @@ export default function TrialForm() {
 
         </div>
 
-        <InputField label="Phone" name="phone" />
+        <InputField2 errors={errors} register={register} name="phone" label="Phone" />
 
-        <label className="block pt-4">
-          <input name="gdpr" id="gdpr" type="checkbox" checked={gdpr} onChange={() => updateGDPR(!gdpr)} />
-          <span className="pl-3 italic text-sm">I agree to receive Harbur marketing communications via email. I can always update my preferences later.</span>
-        </label>
+        <CheckboxField2 register={register} name="gdpr">
+          I agree to receive Harbur marketing communications via email. I can always update my preferences later.
+        </CheckboxField2>
 
-        <label className="block pt-4">
-          <input name="terms" id="terms" type="checkbox" checked={terms} onChange={() => updateTerms(!terms)} />
-          <span className="pl-3 italic text-sm">I agree to the Harbur <Link href="https://harbur.io/privacy/index.html"><a rel="noopener" target="_blank" className="border-b border-gray-500 border-dotted">Terms of Use & Privacy Policy</a></Link>.</span>
-        </label>
+        <CheckboxField2 register={register} name="terms">
+          I agree to the Harbur <Link href="https://harbur.io/privacy/index.html"><a rel="noopener" target="_blank" className="border-b border-gray-500 border-dotted">Terms of Use & Privacy Policy</a></Link>.
+        </CheckboxField2>
 
         <input type="hidden" name="form-name" value="enterprise-trial" />
         <button className={`btn btn-green btn-popup mt-6 inline-flex rounded py-3 w-full ${!terms ? "opacity-50" : ""}`} type="submit" disabled={!terms}>Create Trial</button>
       </form>
     </div>
   )
+}
+export function timestampToday() {
+  const d = new Date();
+  return d.toLocaleString("en", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
 }
