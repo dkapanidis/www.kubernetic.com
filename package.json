@@ -34,7 +34,7 @@
     "react-ga": "^3.3.0",
     "react-hook-form": "^7.11.0",
     "react-https-redirect": "^1.1.0",
-    "react-markdown": "^4.3.1",
+    "react-markdown": "^7.0.1",
     "reactfire": "^4.2.0",
     "remark": "^14.0.1",
     "remark-emoji": "^2.2.0",
