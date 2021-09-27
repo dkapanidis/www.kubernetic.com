@@ -1,7 +1,5 @@
 import matter from 'gray-matter';
 import Link from 'next/link';
-const stripMarkdownPlugin = require('strip-markdown')
-const remark = require('remark')
 
 function importAll(r: any) {
   return r.keys().map(r)
