@@ -1,20 +1,18 @@
-const emoji = require('remark-emoji');
-const withPlugins = require('next-compose-plugins');
-const images = require('remark-images')
-const optimizedImages = require('next-optimized-images');
-
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [emoji, images]
+// next.config.js
+module.exports = {
+  webpack5: true,
+  async redirects() {
+    return [
+      {
+        source: '/blog/secure-kubernetic-on-premise-with-pomerium',
+        destination: '/blog/secure-kubernetic-on-premises-with-pomerium',
+        permanent: true,
+      },
+      {
+        source: '/blog/running-securely-kubernetic-on-premise-with-identity-aware-proxy',
+        destination: '/blog/running-securely-kubernetic-on-premises-with-identity-aware-proxy',
+        permanent: true,
+      }
+    ]
   },
-})
-module.exports = withPlugins([
-  [optimizedImages, {
-    optimizeImages: false,
-  }],
-  [withMDX,{pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']}],
-  [{future: {
-	  webpack5: true
-  }}]
-])
+}

@@ -10,8 +10,8 @@ export default function Header() {
           <div className="flex-grow"></div>
           <div className="hidden md:flex items-center justify-end space-x-8 ">
             <HeaderLink to="/pricing" title="Pricing" />
-            <HeaderLink to="//docs.kubernetic.com" title="Docs" />
-            <HeaderLink to="//docs.kubernetic.com/tutorials/" title="Tutorials" />
+            <HeaderLink to="https://docs.kubernetic.com" title="Docs" />
+            <HeaderLink to="https://docs.kubernetic.com/tutorials/" title="Tutorials" />
             <HeaderLink to="/blog" title="Blog" />
             <HeaderButton to="/team/trial" title="Try Team" />
           </div>
@@ -30,8 +30,8 @@ export function HeaderSolid() {
             <div className="flex-grow"></div>
           <div className="hidden md:flex items-center justify-end space-x-8 ">
             <HeaderLink to="/#pricing" title="Pricing" />
-            <HeaderLink to="//docs.kubernetic.com" title="Docs" />
-            <HeaderLink to="//docs.kubernetic.com/tutorials/" title="Tutorials" />
+            <HeaderLink to="https://docs.kubernetic.com" title="Docs" />
+            <HeaderLink to="https://docs.kubernetic.com/tutorials/" title="Tutorials" />
             <HeaderLink to="/blog" title="Blog" />
             <HeaderButton to="/team/trial" title="Try Team" />
           </div>
