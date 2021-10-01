@@ -16,3 +16,4 @@ gsutil web set -m index.html gs://www.kubernetic.com
 # GIFs
 
 GIFs are created with format 1500x840
+
