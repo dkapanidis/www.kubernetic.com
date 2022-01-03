@@ -14,11 +14,11 @@ const schema = yup.object().shape({
     checkoutType: yup.string().required(),
     clientName: yup.string().required(),
     clientCif: yup.string().optional(),
-    clientAddress: yup.string().optional(),
-    clientCity: yup.string().optional(),
-    clientPostalCode: yup.string().optional(),
+    clientAddress: yup.string().required(),
+    clientCity: yup.string().required(),
+    clientPostalCode: yup.string().required(),
     country: yup.string().optional(),
-    licenses: yup.number().positive().integer().optional(),
+    licenses: yup.number().positive().integer().required(),
 }).required();
 
 export default function Checkout() {
@@ -57,11 +57,11 @@ export default function Checkout() {
                 <div className="pt-10">
                     <h4>Company Information</h4>
                     <small className="text-xs text-gray-500 italic">Required for an invoice</small>
-                    <InputField2 errors={errors} register={register} name="clientName" label="Company Name" required />
+                    <InputField2 errors={errors} register={register} name="clientName" required label="Company Name" />
                     <InputField2 errors={errors} register={register} name="clientCif" label="VAT ID" info="The VAT ID is only relevant for corporate customers within the EU.  The VAT ID consists of two letters identifying the country (ES), and the country-specific number of digits. Enter your VAT ID in accordance with your country-specific format. If this does not apply to you, leave the VAT ID field empty." />
-                    <InputField2 errors={errors} register={register} name="clientAddress" label="Street address" />
-                    <InputField2 errors={errors} register={register} name="clientCity" label="City" />
-                    <InputField2 errors={errors} register={register} name="clientPostalCode" label="Postal code / ZIP" />
+                    <InputField2 errors={errors} register={register} name="clientAddress" required label="Street address" />
+                    <InputField2 errors={errors} register={register} name="clientCity" required label="City" />
+                    <InputField2 errors={errors} register={register} name="clientPostalCode" required label="Postal code / ZIP" />
                 </div>
 
                 <YourOrderSection register={register} watch={watch} checkoutType="commercial" />
