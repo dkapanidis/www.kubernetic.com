@@ -17,21 +17,21 @@ Site can be previewed locally with [nextjs].
 * To install:
 
 ```shell
-npm install
+yarn
 ```
 
 * To start:
 
 ```shell
-npm run dev
+yarn start
 ```
 
 ## Deployment
 
-Continuous Deployment (CD) is done with [Netlify]:
+Continuous Deployment (CD) is done with [Vercel]:
 
 * from `master` branch to https://www.kubernetic.com/.
 * from `develop` branch to https://develop--www-kubernetic.netlify.app/.
 * from PRs as Preview with dedicated URL for each one.
 
-[Netlify]: https://www.netlify.com/
+[Vercel]: https://vercel.com/dkapanidis/www-kubernetic-com
