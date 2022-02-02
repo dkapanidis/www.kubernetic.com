@@ -33,22 +33,21 @@ export default function PricingTable() {
 function PricingColumnIndividual() {
   return (
     <div className="flex flex-col bg-white border-2 rounded-lg divide-y divide-gray-300">
-      <PricingHeader title="Kubernetic Desktop" subtitle="A pay-once license, just for you" icon={<UserIcon />} />
+      <PricingHeader title="Kubernetic Desktop" subtitle="A license for your machine" icon={<UserIcon />} />
       <div className="flex-1">
         <h2 className="p-4 text-left font-bold">
-          <span className="text-3xl">€ 60</span>
-          <span className="text-md pl-2 font-bold">one-time payment</span>
+          <span className="text-md pl-2 font-bold">€ 60 / year</span>
         </h2>
         <ul className="p-4 pl-4 text-left font-bold">
           <PricingListItem
-            title="The Desktop Client app — yours to keep, forever"
+            title="The Desktop Client app"
             subtitle="The best companion to extend your CLI tooling with a Desktop UI." />
           <PricingListItem
             title="One year of app updates"
             subtitle="Stay up to date with new features and improvements." />
           <PricingListItem
             title="Multi-OS License"
-            subtitle="Stay up to date with new features and improvements." />
+            subtitle="Use your personal license on multiple machines at the same time." />
           <PricingListItem
             title="Unlimited Namespaces"
             subtitle="Split and manage your cluster(s) as you wish with multiple namespaces." />
@@ -76,8 +75,7 @@ function PricingColumnTeam() {
       <PricingHeader title="Kubernetic Team" subtitle="A subscription for the whole team" icon={<GroupIcon />} />
       <div className="flex-1">
         <h2 className="p-4 text-left font-bold">
-          <span className="text-3xl">€ 34</span>
-          <span className="text-md pl-2 font-bold">per user, monthly</span>
+          <span className="text-3xl">€ 34 per user / monthly</span>
         </h2>
         <ul className="p-4 pl-4 text-left font-bold">
           <PricingListItem
