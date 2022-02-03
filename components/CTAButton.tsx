@@ -34,7 +34,7 @@ const DropdownMenu = () => (
   <div className="absolute">
     <ul className="w-56 ml-1 p-2 mt-2 text-gray-600 bg-white border border-gray-100 rounded-lg shadow-md min-w-max-content right-0" aria-label="submenu">
       <DropdownMenuItem icon={<WinIcon />} text="Download for Windows" eventLabel="download win" to="https://kubernetic.s3.amazonaws.com/Kubernetic+Setup+3.2.0.exe" />
-      <DropdownMenuItem icon={<LinuxIcon />} text="Download for Linux" eventLabel="download linux" to="https://kubernetic.s3.amazonaws.com/Kubernetic-3.2.0.tar.gz" />
+      <DropdownMenuItem icon={<LinuxIcon />} text="Download for Linux" eventLabel="download linux" to="https://kubernetic.s3.amazonaws.com/Kubernetic-3.2.0.AppImage" />
     </ul>
   </div>
 )
