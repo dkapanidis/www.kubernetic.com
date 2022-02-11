@@ -1,19 +1,19 @@
+import shiki from 'rehype-shiki'
 import html from 'rehype-stringify'
+import emoji from 'remark-emoji'
 import markdown from 'remark-parse'
-import prism from 'remark-prism'
 import remark2rehype from 'remark-rehype'
 import slug from 'remark-slug'
-import unified from 'unified'
+import { unified } from 'unified'
 var extractToc = require("remark-extract-toc");
- import emoji from 'remark-emoji'
 
 export default async function markdownToHtml(text: string) {
   const result = await unified()
     .use(markdown)
     .use(slug)
-    .use(prism)
     .use(emoji)
     .use(remark2rehype as any)
+    .use(shiki)
     .use(html)
     .process(text);
 
