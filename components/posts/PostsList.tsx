@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import React from 'react';
 import Post from '../../types/post';
@@ -33,7 +34,7 @@ function PostRow({ post }: PostRowProps) {
                   <a className="text-gray-900">{post.title}</a>
                 </Link>
               </h2>
-              {post.coverImage && <img src={post.coverImage} />}
+              {post.coverImage && <img src={post.coverImage} alt={post.title} />}
               <div className="prose max-w-none text-gray-500">
                 {post.excerpt}
               </div>
