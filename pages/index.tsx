@@ -18,7 +18,7 @@ export const Index = () => {
   // redirect hash to dedicated pricing page
   useEffect(() => {
     (router.asPath === "/#pricing") && router.push("/pricing")
-  }, [])
+  }, [router])
 
   return (
     <Layout title="The Kubernetes Desktop Client">

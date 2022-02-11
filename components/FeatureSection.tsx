@@ -1,4 +1,5 @@
 import { keyframes } from "@emotion/react";
+import Image from "next/image";
 import Reveal from "react-awesome-reveal";
 
 const customAnimation = keyframes`
@@ -28,11 +29,13 @@ export default function FeatureSection({ title, img, alt, children }: FeatureSec
             </ul>
           </div>
           <div className="py-16 px-4">
-            <img
+            <Image
               src={img}
               alt={alt}
               className="shadow-2xl"
-              style={{ maxWidth: '700px' }}
+              width={800}
+              height={500}
+              layout="intrinsic"
             />
           </div>
         </div>
@@ -54,11 +57,14 @@ export function FeatureBlackSection({ title, img, alt, children }: FeatureBlackS
             </ul>
           </div>
           <div className="py-16 px-4">
-            <img
+            <Image
               src={img}
               alt={alt}
               className="shadow-2xl"
-              style={{ maxWidth: "700px" }} />
+              width={800}
+              height={500}
+              layout="intrinsic"
+              />
           </div>
         </div>
       </Reveal>

@@ -15,7 +15,7 @@ export default function PriceUpdate() {
           <div className="flex-grow" />
           <Link href="/#pricing">
             <a className="text-white text-center">
-              We're updating our pricing, with limited time 50% discount until 8
+              We&apos;re updating our pricing, with limited time 50% discount until 8
               of May.
             </a>
           </Link>

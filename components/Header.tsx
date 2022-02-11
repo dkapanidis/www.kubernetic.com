@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from "react"
 
@@ -70,7 +71,7 @@ function Logo() {
   return (
     <Link href="/">
       <a className="px-4 flex-none">
-        <img className="h-8 w-auto" src="/images/kubernetic.webp" alt="Kubernetic" />
+        <Image className="h-8 w-auto" width={256} height={38} src="/images/kubernetic.webp" alt="Kubernetic" layout="fixed"/>
       </a>
     </Link>
   )

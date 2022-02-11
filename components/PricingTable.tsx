@@ -20,7 +20,7 @@ export default function PricingTable() {
             <PricingColumnIndividual />
             <PricingColumnTeam />
           </div>
-          <div className="text-center italic font-light text-gray-700 text-sm pb-10">Prices listed in <span aria-label="Euro" data-balloon-pos="up" className="border-b border-gray-500 border-dotted">EUR</span>. Taxes may apply. By using Kubernetic you agree to our <a rel="noopener" target="_blank" href="https://harbur.io/privacy" className="border-b border-gray-500 border-dotted">terms and policies</a>.</div>
+          <div className="text-center italic font-light text-gray-700 text-sm pb-10">Prices listed in <span aria-label="Euro" data-balloon-pos="up" className="border-b border-gray-500 border-dotted">EUR</span>. Taxes may apply. By using Kubernetic you agree to our <a rel="noreferrer" target="_blank" href="https://harbur.io/privacy" className="border-b border-gray-500 border-dotted">terms and policies</a>.</div>
         </div>
       </div >
     </>

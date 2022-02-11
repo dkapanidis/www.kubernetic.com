@@ -17,7 +17,7 @@ interface PostRowProps { post: Post }
 function PostRow({ post }: PostRowProps) {
 
   return (
-    <Link href={`/blog/${post.slug}`}>
+    <Link href={`/blog/${post.slug}`} passHref>
       <div key={post.slug} className="py-12">
         <article className="space-y-2 xl:grid xl:grid-cols-4 xl:space-y-0 xl:items-baseline">
           <dl>

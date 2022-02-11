@@ -41,7 +41,7 @@ export default function Checkout() {
             .then(response => {
                 setValue("country", response.country_name)
             })
-    }, [])
+    }, [setValue])
 
     return (
         <CheckoutLayout checkoutType="personal">
