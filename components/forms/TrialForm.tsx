@@ -1,24 +1,14 @@
 import { Trial } from "@components/models/Trial";
 import CheckboxField2 from "@components/ui/form/CheckboxField2";
-import InputField from "@components/ui/form/InputField";
 import InputField2 from "@components/ui/form/InputField2";
-import { addDoc, collection } from "@firebase/firestore";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { addDoc, collection } from "firebase/firestore";
 import Link from "next/link";
 import router from "next/router";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useFirestore } from "reactfire";
 import * as yup from "yup";
 
-const expectedUsersOptions = [
-  { key: "1", text: "1", value: "1" },
-  { key: "5", text: "5", value: "5" },
-  { key: "10", text: "10", value: "10" },
-  { key: "20", text: "20", value: "20" },
-  { key: "50", text: "50", value: "50" },
-  { key: "100+", text: "100+", value: "100+" }
-]
 const COLLECTION = 'trials'
 
 const schema = yup.object().shape({
@@ -34,7 +24,7 @@ const schema = yup.object().shape({
 }).required();
 
 export default function TrialForm() {
-  const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm<Trial>({
+  const { register, watch, handleSubmit, formState: { errors } } = useForm<Trial>({
     defaultValues: {
       expectedUsers: 1,
       timestamp: timestampToday(),
