@@ -1,6 +1,6 @@
 ---
 title: 'Kubernetic v3.3.0 Released'
-excerpt: 'Release v3.3.0 is out.'
+excerpt: 'Release v3.3.0 is out with some important changes.'
 date: '2022-02-22'
 ---
 
