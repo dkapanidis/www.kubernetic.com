@@ -22,4 +22,4 @@ Until recently the licensing of Kubernetic was perpetual with one-year free upda
 
 For existing clients with older than one-year licenses they can continue using Kubernetic `v3.2.0` ([Mac](https://kubernetic.s3.amazonaws.com/Kubernetic-3.2.0.dmg), [Linux](https://kubernetic.s3.amazonaws.com/Kubernetic-3.2.0.AppImage), [Win](https://kubernetic.s3.amazonaws.com/Kubernetic+Setup+3.2.0.exe)) without any limitations.
 
-For all existing clients there is a discount of **20%** for any number of licenses for the until end of March, to request simply reach us an email at [contact@harbur.io](mailto:contact@harbur.io?subject=Discount%20offer).
+For all existing clients there is a discount of **20%** for any number of licenses for the until end of March, to request simply send an email at [contact@harbur.io](mailto:contact@harbur.io?subject=Discount%20offer).
