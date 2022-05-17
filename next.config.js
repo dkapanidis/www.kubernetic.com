@@ -15,7 +15,12 @@ module.exports = {
         source: '/blog/running-securely-kubernetic-on-premise-with-identity-aware-proxy',
         destination: '/blog/running-securely-kubernetic-on-premises-with-identity-aware-proxy',
         permanent: true,
-      }
+      },
+      {
+        source: '/enterprise/trial',
+        destination: '/team/trial',
+        permanent: true,
+      },
     ]
   },
 }
