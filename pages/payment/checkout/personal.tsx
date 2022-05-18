@@ -44,9 +44,9 @@ export default function Checkout() {
     }, [setValue])
 
     return (
-        <CheckoutLayout checkoutType="personal">
+        <CheckoutLayout title="Kubernetic Desktop checkout" checkoutType="personal">
             <form onSubmit={handleSubmit(onSubmit)} >
-                <YourOrderSection register={register} watch={watch} checkoutType="personal" />
+                <YourOrderSection title="Kubernetic Desktop License" price={60} register={register} watch={watch} checkoutType="personal" />
                 <div className="pt-20 pb-20">
                     <button type="submit" value="submit" className="btn btn-blue btn-popup float-right rounded py-3 px-8 w-40"  >
                         {clicked ? "Loading..." : "Next"}

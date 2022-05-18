@@ -6,9 +6,11 @@ import CountryField, { isEuropeanCountry } from "./CountryField";
 type YourOrderSectionProps = {
     register: any,
     watch: any,
+    title: string,
+    price: number,
     checkoutType: "personal" | "commercial"
 }
-export default function YourOrderSection({ register, watch, checkoutType }: YourOrderSectionProps) {
+export default function YourOrderSection({ register, watch, title, price, checkoutType }: YourOrderSectionProps) {
     const licenses = watch("licenses")
     const country = watch("country")
 
@@ -48,9 +50,9 @@ export default function YourOrderSection({ register, watch, checkoutType }: Your
         if (Number.isNaN(licenses)) {
             setSubtotal(0)
         } else {
-            setSubtotal(licenses * 60)
+            setSubtotal(licenses * price)
         }
-    }, [licenses])
+    }, [licenses, price])
 
     // Calculate Tax
     useEffect(() => {
@@ -69,8 +71,8 @@ export default function YourOrderSection({ register, watch, checkoutType }: Your
                 <h4>Your Order</h4>
             </div>
             <ul className="p-4">
-                <div className="float-right text-gray-700">€ 60.00</div>
-                <h5 className="italic">Kubernetic Desktop License</h5>
+                <div className="float-right text-gray-700">€ {price}.00</div>
+                <h5 className="italic">{title}</h5>
                 <LicensesField register={register} />
             </ul>
             <div className="block p-4">
