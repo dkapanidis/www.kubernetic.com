@@ -4,6 +4,7 @@ import { initGA, logPageView } from '@utils/utils/analytics'
 import Head from 'next/head'
 import { FirestoreProvider, useFirebaseApp } from 'reactfire'
 import { getFirestore } from "firebase/firestore";
+import TwitterConvTrkr from "react-twitter-conversion-tracker";
 
 type LayoutProps = { children: any, title: string }
 export default function Layout({ children, title }: LayoutProps) {
@@ -12,6 +13,8 @@ export default function Layout({ children, title }: LayoutProps) {
 
   useEffect(() => {
     initHubspot()
+    TwitterConvTrkr.init("o8t6a");
+    TwitterConvTrkr.pageView();
     initGA()
     logPageView()
   }, [])
