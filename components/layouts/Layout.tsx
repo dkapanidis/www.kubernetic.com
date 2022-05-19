@@ -13,7 +13,7 @@ export default function Layout({ children, title }: LayoutProps) {
 
   useEffect(() => {
     initHubspot()
-    TwitterConvTrkr.init("o8t6a");
+    TwitterConvTrkr.init("o8t6q");
     TwitterConvTrkr.pageView();
     initGA()
     logPageView()
