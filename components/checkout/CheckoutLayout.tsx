@@ -8,7 +8,7 @@ export default function CheckoutLayout({ children, title, showTabs = true, check
     return (
         <Layout title="Payment Checkout">
             <HeaderSolid />
-            <div className="pt-32 pb-10">
+            <div className="pt-4 pb-10">
                 <div className="pl-20 pr-20 md:px-32 lg:px-64">
                     <h1 className="text-3xl font-bold text-gray-600 py-4">{title}</h1>
 

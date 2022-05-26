@@ -2,21 +2,28 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from "react"
 
+function HeaderLinks() {
+  return (
+    <div className="flex py-8">
+      <Logo />
+      <div className="flex-grow"></div>
+      <div className="hidden md:flex items-center justify-end space-x-8 ">
+        <HeaderLink to="/#pricing" title="Pricing" />
+        <HeaderLink to="https://docs.kubernetic.com" title="Docs" />
+        <HeaderLink to="https://docs.kubernetic.com/tutorials/" title="Tutorials" />
+        <HeaderLink to="/blog" title="Blog" />
+        <div className="px-4" />
+        <HeaderButton to="/team/trial" title="Try Team" />
+      </div>
+    </div>
+  )
+}
+
 export default function Header() {
   return (
     <div className="bg-transparent absolute top-0 inset-x-0 z-100 h-20 items-center">
       <div className="max-w-7xl bg-transparent mx-auto px-6 md:px-20">
-        <div className="flex py-8">
-          <Logo />
-          <div className="flex-grow"></div>
-          <div className="hidden md:flex items-center justify-end space-x-8 ">
-            <HeaderLink to="/pricing" title="Pricing" />
-            <HeaderLink to="https://docs.kubernetic.com" title="Docs" />
-            <HeaderLink to="https://docs.kubernetic.com/tutorials/" title="Tutorials" />
-            <HeaderLink to="/blog" title="Blog" />
-            <HeaderButton to="/team/trial" title="Try Team" />
-          </div>
-        </div>
+        <HeaderLinks />
       </div>
     </div>
   )
@@ -24,19 +31,9 @@ export default function Header() {
 
 export function HeaderSolid() {
   return (
-    <div className="bg-blue-500 absolute top-0 inset-x-0 z-100 h-24 items-center hideout background">
+    <div className="bg-blue-500 inset-x-0 z-100 h-24 items-center hideout background">
       <div className="max-w-7xl mx-auto px-6 sm:px-20">
-        <div className="flex py-8">
-            <Logo />
-            <div className="flex-grow"></div>
-          <div className="hidden md:flex items-center justify-end space-x-8 ">
-            <HeaderLink to="/#pricing" title="Pricing" />
-            <HeaderLink to="https://docs.kubernetic.com" title="Docs" />
-            <HeaderLink to="https://docs.kubernetic.com/tutorials/" title="Tutorials" />
-            <HeaderLink to="/blog" title="Blog" />
-            <HeaderButton to="/team/trial" title="Try Team" />
-          </div>
-        </div>
+        <HeaderLinks />
       </div>
     </div>
   )
@@ -71,7 +68,7 @@ function Logo() {
   return (
     <Link href="/">
       <a className="px-4 flex-none">
-        <Image className="h-8 w-auto" width={256} height={38} src="/images/kubernetic.webp" alt="Kubernetic" layout="fixed"/>
+        <Image className="h-8 w-auto" width={256} height={38} src="/images/kubernetic.webp" alt="Kubernetic" layout="fixed" />
       </a>
     </Link>
   )

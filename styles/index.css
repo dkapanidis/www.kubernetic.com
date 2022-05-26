@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overflow: hidden;
+  height: 100%;
+}
+body {
+  height: 100%;
+  overflow: auto;
+}
+
+/* Set root document height to 100% */
+#__next {
+  height: 100%;
+}
+
 .dotted {
   text-decoration-line: underline;
   text-decoration-style: dotted;

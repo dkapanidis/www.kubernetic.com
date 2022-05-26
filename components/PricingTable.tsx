@@ -14,7 +14,7 @@ export default function PricingTable() {
       <div id="pricing" className="bg-gray-200">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center pb-20">
-            <h2 className="mt-8 pt-20 text-3xl font-light sm:text-6xl sm:leading-tight">The right price for you</h2>
+            <h2 className="pt-10 text-3xl font-light sm:text-6xl sm:leading-tight">The right price for you</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4 text-center pb-10">
             <PricingColumnIndividual />

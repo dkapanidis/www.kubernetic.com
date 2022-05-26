@@ -1,4 +1,4 @@
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import TooltipWithShortcut from '../tooltips/TooltipWithShortcut';
 

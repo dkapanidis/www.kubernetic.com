@@ -1,4 +1,4 @@
-import { BusinessCenter, Person } from "@material-ui/icons";
+import { BusinessCenter, Person } from "@mui/icons-material";
 import Link from "next/link";
 
 export default function PaymentTabs({ checkoutType }: { checkoutType: "personal" | "commercial" }) {

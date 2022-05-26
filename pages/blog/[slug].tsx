@@ -26,13 +26,13 @@ const Post = ({ post, previous, next, toc }: Props) => {
             <HeaderSolid />
             <div className="flex">
                 <div className="flex-1" />
-                <article className="flex-shrink prose pt-40 pb-10 max-w-2xl">
+                <article className="flex-shrink prose pt-8 pb-10 max-w-2xl">
                     <PostBody post={post} />
                     <MorePosts previous={previous} next={next} />
-                    <Footer />
                 </article>
                 <div className="flex-1" />
             </div>
+            <Footer />
         </Layout>
     );
 };

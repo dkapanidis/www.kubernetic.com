@@ -8,7 +8,7 @@ export default function Trial() {
   return (
     <Layout title="Team Trial">
       <HeaderSolid />
-      <div className="pt-40 pb-10">
+      <div className="pt-8 pb-10">
         <div className="px-10 md:px-56 text-center">
           <section className="section app-features-reverse app-features">
             <div className="wrap-wide">
