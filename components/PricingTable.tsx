@@ -75,7 +75,7 @@ function PricingColumnTeam() {
       <PricingHeader title="Kubernetic Team" subtitle="A subscription for the whole team" icon={<GroupIcon />} />
       <div className="flex-1">
         <h2 className="p-4 text-left font-bold">
-          <span className="text-3xl">€ 34 per user / monthly</span>
+          <span className="text-3xl">€ 8 per user / monthly</span>
         </h2>
         <ul className="p-4 pl-4 text-left font-bold">
           <PricingListItem
