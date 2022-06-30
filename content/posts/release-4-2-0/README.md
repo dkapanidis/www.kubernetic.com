@@ -4,7 +4,7 @@ excerpt: 'Release v4.2.0 is out'
 date: '2022-06-28'
 ---
 
-Release v4.1.0 is out with performance improvements and some fixes.
+Release v4.2.0 is out with performance improvements and some fixes.
 
 ### Resources sorted by age
 
