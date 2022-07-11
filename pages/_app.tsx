@@ -4,6 +4,7 @@ import React from 'react';
 import { FirebaseAppProvider } from 'reactfire';
 import '../styles/index.css';
 import '../styles/semantic.css';
+import '../styles/prism-tomorrow.css'
 
 type MyAppProps = { Component: any, pageProps: any }
 

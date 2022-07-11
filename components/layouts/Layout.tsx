@@ -67,11 +67,6 @@ export default function Layout({ children, title }: LayoutProps) {
         <meta property="og:image:height" content="315" />
 
         <meta property="fb:admins" content="" />
-
-        <link
-          href={`https://unpkg.com/prismjs@0.0.1/themes/prism-tomorrow.css`}
-          rel="stylesheet"
-        />
       </Head>
       <div>
         <FirestoreProvider sdk={firestore}>
