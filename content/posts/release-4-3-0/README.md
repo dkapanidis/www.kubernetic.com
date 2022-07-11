@@ -59,5 +59,5 @@ You can now:
 * Create HelmReleases
 * View Kustomizations generated resources
 
-![podinfo-kustomization-view](../../../public/blog/release-4-3-0/podinfo-kustomization-view.png)
+![podinfo-kustomization-view](/blog/release-4-3-0/podinfo-kustomization-view.png)
 
