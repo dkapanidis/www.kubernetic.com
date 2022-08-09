@@ -11,7 +11,7 @@ export default function CTAButton() {
           <div className="btn-popup inline-flex w-56 divide-x divide-green-600 hover:shadow-lg">
             <OutboundLink
               eventLabel="download mac"
-              to="https://kubernetic.s3.amazonaws.com/Kubernetic-4.3.0.dmg">
+              to="https://kubernetic.s3.amazonaws.com/Kubernetic-4.4.0.dmg">
               <button className="btn btn-green inline-flex w-48 rounded-l  px-3 py-3 pl-4">
                 <AppleIcon />
                 <span>Download for Mac</span>
@@ -33,8 +33,8 @@ export default function CTAButton() {
 const DropdownMenu = () => (
   <div className="absolute">
     <ul className="w-56 ml-1 p-2 mt-2 text-gray-600 bg-white border border-gray-100 rounded-lg shadow-md min-w-max-content right-0" aria-label="submenu">
-      <DropdownMenuItem icon={<WinIcon />} text="Download for Windows" eventLabel="download win" to="https://kubernetic.s3.amazonaws.com/Kubernetic+Setup+4.3.0.exe" />
-      <DropdownMenuItem icon={<LinuxIcon />} text="Download for Linux" eventLabel="download linux" to="https://kubernetic.s3.amazonaws.com/Kubernetic-4.3.0.AppImage" />
+      <DropdownMenuItem icon={<WinIcon />} text="Download for Windows" eventLabel="download win" to="https://kubernetic.s3.amazonaws.com/Kubernetic+Setup+4.4.0.exe" />
+      <DropdownMenuItem icon={<LinuxIcon />} text="Download for Linux" eventLabel="download linux" to="https://kubernetic.s3.amazonaws.com/Kubernetic-4.4.0.AppImage" />
     </ul>
   </div>
 )
