@@ -16,3 +16,4 @@ package = "netlify-plugin-cache-nextjs"
 [context.branch-deploy.environment]
   NEXT_PUBLIC_LICENSESERVER_URL = "https://us-central1-kubernetic-test.cloudfunctions.net/httpsStripeSession"
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_test_T7mLNhEI2PjHP95pAVXjTmKz00n4zAWGQ3"
+

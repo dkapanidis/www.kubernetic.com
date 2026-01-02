@@ -1,18 +1,18 @@
 import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeSlug from 'rehype-slug'
 import html from 'rehype-stringify'
 import emoji from 'remark-emoji'
 import markdown from 'remark-parse'
 import remark2rehype from 'remark-rehype'
-import slug from 'remark-slug'
 import { unified } from 'unified'
 var extractToc = require("remark-extract-toc");
 
 export default async function markdownToHtml(text: string) {
   const result = await unified()
     .use(markdown)
-    .use(slug)
     .use(emoji)
-    .use(remark2rehype as any)
+    .use(remark2rehype)
+    .use(rehypeSlug)
     .use(rehypePrettyCode, {
       theme: 'github-dark',
       keepBackground: true,

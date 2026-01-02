@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { addDoc, collection } from "firebase/firestore";
 import Link from "next/link";
 import router from "next/router";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useFirestore } from "reactfire";
 import * as yup from "yup";
@@ -24,6 +25,7 @@ const schema = yup.object().shape({
 }).required();
 
 export default function TrialForm() {
+  const [mounted, setMounted] = useState(false);
   const { register, watch, handleSubmit, formState: { errors } } = useForm<Trial>({
     defaultValues: {
       expectedUsers: 1,
@@ -34,12 +36,18 @@ export default function TrialForm() {
   });
 
   const terms = watch("terms")
+  const firestore = useFirestore();
 
-  const col = collection(useFirestore(), COLLECTION);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   async function onSubmit(data: Trial) {
+    if (!mounted) return;
+    
     console.log("data", data)
     try {
+      const col = collection(firestore, COLLECTION);
       const ref = await addDoc(col, {
         ...data,
         timestamp: new Date(data.timestamp),
@@ -49,6 +57,10 @@ export default function TrialForm() {
     } catch (error) {
       // nothing but void
     }
+  }
+
+  if (!mounted) {
+    return <div className="p-10 text-left border shadow-xl rounded-lg border-blue-500">Loading...</div>;
   }
 
   return (
