@@ -33,7 +33,6 @@ export default function FeatureSection({ title, img, alt, children }: FeatureSec
             className="shadow-2xl"
             width={800}
             height={500}
-            layout="intrinsic"
           />
         </div>
       </div>
@@ -59,7 +58,6 @@ export function FeatureBlackSection({ title, img, alt, children }: FeatureBlackS
             className="shadow-2xl"
             width={800}
             height={500}
-            layout="intrinsic"
           />
         </div>
       </div>

@@ -23,7 +23,7 @@ export default function Layout({ children, title }: LayoutProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Kubernetic - {title}</title>
+        <title>{`Kubernetic - ${title}`}</title>
 
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta httpEquiv="Content-Language" content="en" />

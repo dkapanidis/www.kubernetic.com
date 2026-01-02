@@ -1,9 +1,5 @@
 // next.config.js
 module.exports = {
-  webpack5: true,
-  experimental: {
-    esmExternals: false
-  },
   async redirects() {
     return [
       {

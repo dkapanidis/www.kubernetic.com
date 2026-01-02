@@ -43,10 +43,8 @@ type HeaderLinkProps = { to: string, title: string }
 function HeaderButton({ to, title }: HeaderLinkProps) {
   return (
     <span className="inline-flex rounded-md shadow">
-      <Link href={to}>
-        <a className="btn btn-indigo btn-popup inline-flex items-center justify-center px-4 py-2 rounded-md">
-          {title}
-        </a>
+      <Link href={to} className="btn btn-indigo btn-popup inline-flex items-center justify-center px-4 py-2 rounded-md">
+        {title}
       </Link>
     </span>
   )
@@ -55,10 +53,8 @@ function HeaderButton({ to, title }: HeaderLinkProps) {
 function HeaderLink({ to, title }: HeaderLinkProps) {
   return (
     <span className="inline-flex">
-      <Link href={to}>
-        <a className="whitespace-nowrap text-base leading-6 font-medium text-white hover:underline hover:text-white focus:outline-none focus:text-white">
-          {title}
-        </a>
+      <Link href={to} className="whitespace-nowrap text-base leading-6 font-medium text-white hover:underline hover:text-white focus:outline-none focus:text-white">
+        {title}
       </Link>
     </span>
   )
@@ -66,10 +62,8 @@ function HeaderLink({ to, title }: HeaderLinkProps) {
 
 function Logo() {
   return (
-    <Link href="/">
-      <a className="px-4 flex-none">
-        <Image className="h-8 w-auto" width={256} height={38} src="/images/kubernetic.webp" alt="Kubernetic" layout="fixed" />
-      </a>
+    <Link href="/" className="px-4 flex-none">
+      <Image className="h-8 w-auto" width={256} height={38} src="/images/kubernetic.webp" alt="Kubernetic" />
     </Link>
   )
 }

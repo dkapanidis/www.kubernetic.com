@@ -21,10 +21,10 @@ export default function PostList({ posts, title, description, ...props }: any) {
           posts.map((post: any) => {
             return (
               <li key={post.slug}>
-                <Link href={`/blog/${post.slug}`} passHref><h3><a style={{ color: "#111111" }}>{post.frontmatter.title}</a></h3></Link>
+                <Link href={`/blog/${post.slug}`} style={{ color: "#111111" }}><h3>{post.frontmatter.title}</h3></Link>
                 <div style={{marginBottom: "40px"}}>
                    <p><i>{post.frontmatter.description}</i></p>
-                   <Link href={`/blog/${post.slug}`}><a style={{ color: "#573EDE" }}>Read →</a></Link>
+                   <Link href={`/blog/${post.slug}`} style={{ color: "#573EDE" }}>Read →</Link>
                   </div>
               </li>
             )

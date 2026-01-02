@@ -55,7 +55,7 @@ export default function TrialForm() {
     <div className="p-10 text-left border shadow-xl rounded-lg border-blue-500">
       <h3>Get Started with Kubernetic Team in minutes</h3>
 
-      <p className="pt-5 pb-5 font-extralight">After signing up, we will send you a trial license which will be active for 30 days with seats for 10 users. Once you get your license you can follow the installation process in <Link href="https://docs.kubernetic.com/installation/team"><a>our guide</a></Link>.</p>
+      <p className="pt-5 pb-5 font-extralight">After signing up, we will send you a trial license which will be active for 30 days with seats for 10 users. Once you get your license you can follow the installation process in <Link href="https://docs.kubernetic.com/installation/team">our guide</Link>.</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h6 className="pt-4 pb-2 underline">Trial Details</h6>
         <InputField2 errors={errors} register={register} name="name" label="Your Name" required />
@@ -88,7 +88,7 @@ export default function TrialForm() {
         </CheckboxField2>
 
         <CheckboxField2 register={register} name="terms">
-          I agree to the Harbur <Link href="https://harbur.io/privacy/index.html"><a rel="noopener" target="_blank" className="border-b border-gray-500 border-dotted">Terms of Use & Privacy Policy</a></Link>.
+          I agree to the Harbur <Link href="https://harbur.io/privacy/index.html" rel="noopener" target="_blank" className="border-b border-gray-500 border-dotted">Terms of Use & Privacy Policy</Link>.
         </CheckboxField2>
 
         <input type="hidden" name="form-name" value="enterprise-trial" />

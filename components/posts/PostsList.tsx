@@ -18,9 +18,8 @@ interface PostRowProps { post: Post }
 function PostRow({ post }: PostRowProps) {
 
   return (
-    <Link href={`/blog/${post.slug}`} passHref>
-      <div key={post.slug} className="py-12">
-        <article className="space-y-2 xl:grid xl:grid-cols-4 xl:space-y-0 xl:items-baseline">
+    <div key={post.slug} className="py-12">
+      <article className="space-y-2 xl:grid xl:grid-cols-4 xl:space-y-0 xl:items-baseline">
           <dl>
             <dt className="sr-only">Published on</dt>
             <dd className="text-base leading-6 font-medium text-gray-500">
@@ -30,8 +29,8 @@ function PostRow({ post }: PostRowProps) {
           <div className="space-y-5 xl:col-span-3">
             <div className="space-y-6">
               <h2 className="text-2xl leading-8 font-bold tracking-tight">
-                <Link href={`/blog/${post.slug}`}>
-                  <a className="text-gray-900">{post.title}</a>
+                <Link href={`/blog/${post.slug}`} className="text-gray-900">
+                  {post.title}
                 </Link>
               </h2>
               {post.coverImage && <img src={post.coverImage} alt={post.title} />}
@@ -40,19 +39,17 @@ function PostRow({ post }: PostRowProps) {
               </div>
             </div>
             <div className="text-base leading-6 font-medium">
-              <Link href={`/blog/${post.slug}`}>
-                <a
-                  className="text-teal-500 hover:text-teal-600"
-                  aria-label={`Read "${post.title}"`}
-                >
-                  Read more &rarr;
-                </a>
+              <Link
+                href={`/blog/${post.slug}`}
+                className="text-teal-500 hover:text-teal-600"
+                aria-label={`Read "${post.title}"`}
+              >
+                Read more &rarr;
               </Link>
             </div>
           </div>
         </article>
       </div>
-    </Link>
   )
 }
 

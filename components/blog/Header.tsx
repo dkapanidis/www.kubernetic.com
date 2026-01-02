@@ -15,8 +15,9 @@ export default function Header() {
 
 type HeaderLinkProps = { to: string, title: string }
 function HeaderLink({ to, title }: HeaderLinkProps) {
-  return (<Link href={to}>
-    <a>{title}</a>
-  </Link>
+  return (
+    <Link href={to}>
+      {title}
+    </Link>
   )
 }

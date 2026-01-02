@@ -164,10 +164,8 @@ function PricingListItem({ title, subtitle }: PricingListItemProps) {
 type PricingButtonProps = { to: string, title: string }
 function PricingButton({ to, title }: PricingButtonProps) {
   return (
-    <Link href={to}>
-      <a className="btn btn-blue btn-popup inline-flex rounded py-3 w-full">
-        <span>{title}</span>
-      </a>
+    <Link href={to} className="btn btn-blue btn-popup inline-flex rounded py-3 w-full">
+      <span>{title}</span>
     </Link>
   )
 }

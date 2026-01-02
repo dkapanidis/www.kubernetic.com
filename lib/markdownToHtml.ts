@@ -1,4 +1,4 @@
-import shiki from 'rehype-shiki'
+import rehypePrettyCode from 'rehype-pretty-code'
 import html from 'rehype-stringify'
 import emoji from 'remark-emoji'
 import markdown from 'remark-parse'
@@ -13,7 +13,10 @@ export default async function markdownToHtml(text: string) {
     .use(slug)
     .use(emoji)
     .use(remark2rehype as any)
-    .use(shiki)
+    .use(rehypePrettyCode, {
+      theme: 'github-dark',
+      keepBackground: true,
+    })
     .use(html)
     .process(text);
 

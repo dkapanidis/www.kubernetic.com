@@ -13,10 +13,8 @@ export default function PaymentTabs({ checkoutType }: { checkoutType: "personal"
 type TabSectionProps = { status: string, title: string, icon: any, checkoutType: string }
 function TabSection({ status, title, icon, checkoutType }: TabSectionProps) {
     return (
-        <Link href={`/payment/checkout/${status}`}>
-            <a className={`p-1 border-blue-500 cursor-pointer ${checkoutType === status ? "text-blue-500 border-b-2" : ""}`}>
-                {icon} {title}
-            </a>
+        <Link href={`/payment/checkout/${status}`} className={`p-1 border-blue-500 cursor-pointer ${checkoutType === status ? "text-blue-500 border-b-2" : ""}`}>
+            {icon} {title}
         </Link>
     )
 }
