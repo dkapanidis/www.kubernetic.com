@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { initHubspot } from '@utils/hubspot/hubspot'
-import { initGA, logPageView } from '@utils/utils/analytics'
 import Head from 'next/head'
 import { FirestoreProvider, useFirebaseApp } from 'reactfire'
 import { getFirestore } from "firebase/firestore";
@@ -15,8 +14,6 @@ export default function Layout({ children, title }: LayoutProps) {
     initHubspot()
     TwitterConvTrkr.init("o8t6q");
     TwitterConvTrkr.pageView();
-    initGA()
-    logPageView()
   }, [])
 
   return (
