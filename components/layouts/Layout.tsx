@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { initHubspot } from '@utils/hubspot/hubspot'
 import Head from 'next/head'
 import { FirestoreProvider, useFirebaseApp } from 'reactfire'
@@ -7,6 +8,8 @@ import TwitterConvTrkr from "react-twitter-conversion-tracker";
 
 type LayoutProps = { children: any, title: string }
 export default function Layout({ children, title }: LayoutProps) {
+  const router = useRouter()
+  const canonicalUrl = `https://www.kubernetic.com${router.asPath.split('?')[0]}`
   const app = useFirebaseApp()
   const firestore = getFirestore(app);
 
@@ -26,6 +29,7 @@ export default function Layout({ children, title }: LayoutProps) {
         <meta httpEquiv="Content-Language" content="en" />
         <meta name="google-site-verification" content="" />
 
+        <link rel="canonical" href={canonicalUrl} />
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
