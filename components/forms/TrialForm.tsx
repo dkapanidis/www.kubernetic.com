@@ -2,15 +2,12 @@ import { Trial } from "@components/models/Trial";
 import CheckboxField2 from "@components/ui/form/CheckboxField2";
 import InputField2 from "@components/ui/form/InputField2";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { addDoc, collection } from "firebase/firestore";
+import trialServer from "@utils/services/trialServer";
 import Link from "next/link";
 import router from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useFirestore } from "reactfire";
 import * as yup from "yup";
-
-const COLLECTION = 'trials'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -36,7 +33,6 @@ export default function TrialForm() {
   });
 
   const terms = watch("terms")
-  const firestore = useFirestore();
 
   useEffect(() => {
     setMounted(true);
@@ -44,18 +40,12 @@ export default function TrialForm() {
 
   async function onSubmit(data: Trial) {
     if (!mounted) return;
-    
-    console.log("data", data)
+
     try {
-      const col = collection(firestore, COLLECTION);
-      const ref = await addDoc(col, {
-        ...data,
-        timestamp: new Date(data.timestamp),
-      });
-      console.log(ref)
+      await trialServer.createTrial(data)
       router.push("/")
     } catch (error) {
-      // nothing but void
+      console.error("trial request failed", error)
     }
   }
 

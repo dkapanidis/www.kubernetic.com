@@ -2,5 +2,8 @@
 User-agent: *
 Allow: /
 
+# Host
+Host: https://www.kubernetic.com/
+
 # Sitemaps
 Sitemap: https://www.kubernetic.com/sitemap.xml
