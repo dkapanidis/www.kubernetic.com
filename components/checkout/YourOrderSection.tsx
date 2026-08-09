@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { DeepMap, FieldError, UseFormRegister } from "react-hook-form";
-import CountryField, { isEuropeanCountry } from "./CountryField";
+import CountryField from "./CountryField";
+import { isEuropeanCountry } from "./countries";
 
 type YourOrderSectionProps = {
     register: any,
@@ -24,8 +25,8 @@ export default function YourOrderSection({ register, watch, errors, title, price
     useEffect(() => {
         // COMMERCIAL LICENSES
 
-        // On Spain Tax is not excluded, so we collect 21%
-        if (checkoutType === "commercial" && country === "Spain") {
+        // On Spain (ES) Tax is not excluded, so we collect 21%
+        if (checkoutType === "commercial" && country === "ES") {
             setTaxPercent(21)
             return
         }

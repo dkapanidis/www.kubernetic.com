@@ -1,7 +1,10 @@
 import { Trial } from "@components/models/Trial";
+import CountryOptions from "@components/checkout/CountryOptions";
 import CheckboxField2 from "@components/ui/form/CheckboxField2";
 import InputField2 from "@components/ui/form/InputField2";
+import SelectField2 from "@components/ui/form/SelectField2";
 import { yupResolver } from "@hookform/resolvers/yup";
+import getInitialCountry from "@utils/geo/getInitialCountry";
 import trialServer from "@utils/services/trialServer";
 import Link from "next/link";
 import router from "next/router";
@@ -13,7 +16,7 @@ const schema = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().required().email(),
   jobTitle: yup.string().required(),
-  country: yup.string().required(),
+  country: yup.string().required("Please select your country"),
   expectedUsers: yup.number().required(),
   phone: yup.string().optional(),
   gdpr: yup.boolean().optional(),
@@ -26,6 +29,7 @@ export default function TrialForm() {
   const { register, watch, handleSubmit, formState: { errors } } = useForm<Trial>({
     defaultValues: {
       expectedUsers: 1,
+      country: getInitialCountry(),
       timestamp: timestampToday(),
     },
     mode: 'onBlur',
@@ -64,7 +68,9 @@ export default function TrialForm() {
         <InputField2 errors={errors} register={register} name="email" label="Company Email" required />
         <InputField2 errors={errors} register={register} name="jobTitle" label="Job Title" required />
         <h6 className="pt-4 pb-2 underline">Organization</h6>
-        <InputField2 errors={errors} register={register} name="country" label="Country" required />
+        <SelectField2 errors={errors} register={register} name="country" label="Country" required>
+          <CountryOptions />
+        </SelectField2>
         <div className="inline-block relative w-full required field">
           <label>Expected Users</label>
           <div className="relative">

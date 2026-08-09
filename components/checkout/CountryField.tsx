@@ -1,5 +1,5 @@
 import { DeepMap, FieldError, UseFormRegister } from "react-hook-form";
-import { COUNTRIES } from "./countries";
+import CountryOptions from "./CountryOptions";
 
 type CountryFieldProps = {
     register: UseFormRegister<any>,
@@ -18,10 +18,7 @@ function CountryField({ register, errors }: CountryFieldProps) {
                     className={`block appearance-none w-full hover:border-gray-500 px-4 py-2 pr-8 leading-tight focus:outline-none focus:border bg-transparent focus:border-blue-400 border ${error ? "border-red-500" : "border-transparent"}`}
                     {...register("country")}
                 >
-                    <option value="">Select your country</option>
-                    {COUNTRIES.map(({ value, label }) => (
-                        <option key={value} value={value}>{label}</option>
-                    ))}
+                    <CountryOptions />
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -33,37 +30,4 @@ function CountryField({ register, errors }: CountryFieldProps) {
     )
 }
 
-export function isEuropeanCountry(country: string): boolean {
-    switch (country) {
-        case "Austria":
-        case "Belgium":
-        case "Bulgaria":
-        case "Croatia":
-        case "Cyprus":
-        case "Czech Republic":
-        case "Denmark":
-        case "Estonia":
-        case "Finland":
-        case "France":
-        case "Germany":
-        case "Greece":
-        case "Hungary":
-        case "Ireland":
-        case "Italy":
-        case "Latvia":
-        case "Lithuania":
-        case "Luxembourg":
-        case "Malta":
-        case "Netherlands":
-        case "Poland":
-        case "Portugal":
-        case "Romania":
-        case "Slovakia":
-        case "Slovenia":
-        case "Spain":
-        case "Sweden":
-            return true;
-    }
-    return false
-}
 export default CountryField
