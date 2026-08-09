@@ -254,10 +254,39 @@ export const COUNTRIES: Country[] = [
 ];
 
 /**
- * Names that geo-IP lookups report differently from our `value` spellings.
+ * Names that external sources report differently from our `value` spellings.
  * Keys are lowercased.
+ *
+ * The main source is `Intl.DisplayNames`, which uses CLDR spellings — hence the
+ * "St." abbreviations, the curly apostrophe in "Côte d'Ivoire" and names like
+ * "Türkiye" that our older list spells differently. Anything left unmatched
+ * simply yields no prefill, which is safe.
  */
 const ALIASES: Record<string, string> = {
+  // CLDR spellings from Intl.DisplayNames
+  "türkiye": "Turkey",
+  "côte d’ivoire": "Cote DIvoire",
+  "british indian ocean territory": "British Indian Ocean Ter",
+  "macao sar china": "Macau",
+  "palestinian territories": "Palestine",
+  "palau": "Palau Island",
+  "pitcairn islands": "Pitcairn Island",
+  "são tomé & príncipe": "Sao Tome & Principe",
+  "turks & caicos islands": "Turks & Caicos Is",
+  "st. pierre & miquelon": "St Pierre & Miquelon",
+  "st. kitts & nevis": "St Kitts-Nevis",
+  "st. lucia": "St Lucia",
+  "st. vincent & grenadines": "St Vincent & Grenadines",
+  "st. barthélemy": "St Barthelemy",
+  "st. helena": "St Helena",
+  "st. martin": "St Maarten",
+  "sint maarten": "St Maarten",
+  "caribbean netherlands": "Bonaire",
+  "british virgin islands": "Virgin Islands (Brit)",
+  "u.s. virgin islands": "Virgin Islands (USA)",
+  "cocos (keeling) islands": "Cocos Island",
+  "congo - kinshasa": "Zaire",
+  "congo - brazzaville": "Congo",
   "united states": "United States of America",
   "usa": "United States of America",
   "us": "United States of America",
@@ -330,4 +359,18 @@ export function resolveCountry(name: string | undefined | null): string | undefi
 
 export function isValidCountry(value: string | undefined | null): boolean {
   return !!value && BY_KEY.has(value.trim().toLowerCase());
+}
+
+/**
+ * Resolves an ISO 3166-1 alpha-2 code (e.g. "ES") to one of the values accepted
+ * by the select, going through `Intl.DisplayNames` for the English name. Returns
+ * `undefined` for codes with no equivalent in the list.
+ */
+export function countryFromIsoCode(code: string | undefined | null): string | undefined {
+  if (!code || code.length !== 2) return undefined;
+  try {
+    return resolveCountry(new Intl.DisplayNames(['en'], { type: 'region' }).of(code.toUpperCase()));
+  } catch {
+    return undefined;
+  }
 }

@@ -1,7 +1,7 @@
 import CheckoutLayout from '@components/checkout/CheckoutLayout';
 import YourOrderSection from '@components/checkout/YourOrderSection';
 import { yupResolver } from '@hookform/resolvers/yup';
-import useCountryPrefill from '@utils/geo/useCountryPrefill';
+import getInitialCountry from '@utils/geo/getInitialCountry';
 import licenseServer, { CheckoutForm } from '@utils/services/licenseServer';
 import getStripe from '@utils/stripe/getStripe';
 import React, { useState } from "react";
@@ -15,11 +15,11 @@ const schema = yup.object().shape({
 }).required();
 
 export default function Checkout() {
-    const { register, watch, handleSubmit, setValue, getValues, formState: { errors } } = useForm<CheckoutForm>({
+    const { register, watch, handleSubmit, formState: { errors } } = useForm<CheckoutForm>({
         mode: 'onBlur',
         defaultValues: {
             licenses: 1,
-            country: "",
+            country: getInitialCountry(),
             type: "desktop",
             checkoutType: "personal",
         },
@@ -27,8 +27,6 @@ export default function Checkout() {
     });
     const [clicked, setClicked] = useState(false)
     const [error, setError] = useState("")
-
-    useCountryPrefill(setValue, getValues)
 
     async function onSubmit(data: CheckoutForm) {
         setClicked(true)
@@ -58,5 +56,4 @@ export default function Checkout() {
         </CheckoutLayout>
     )
 }
-
 
