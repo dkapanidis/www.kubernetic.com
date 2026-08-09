@@ -1,20 +1,14 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { initHubspot } from '@utils/hubspot/hubspot'
 import Head from 'next/head'
-import { FirestoreProvider, useFirebaseApp } from 'reactfire'
-import { getFirestore } from "firebase/firestore";
 import TwitterConvTrkr from "react-twitter-conversion-tracker";
 
 type LayoutProps = { children: any, title: string }
 export default function Layout({ children, title }: LayoutProps) {
   const router = useRouter()
   const canonicalUrl = `https://www.kubernetic.com${router.asPath.split('?')[0]}`
-  const app = useFirebaseApp()
-  const firestore = getFirestore(app);
 
   useEffect(() => {
-    initHubspot()
     TwitterConvTrkr.init("o8t6q");
     TwitterConvTrkr.pageView();
   }, [])
@@ -70,10 +64,7 @@ export default function Layout({ children, title }: LayoutProps) {
         <meta property="fb:admins" content="" />
       </Head>
       <div>
-        <FirestoreProvider sdk={firestore}>
-
-          {children}
-        </FirestoreProvider>
+        {children}
       </div>
     </>
   )

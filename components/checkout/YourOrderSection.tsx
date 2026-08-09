@@ -1,16 +1,16 @@
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { DeepMap, FieldError, UseFormRegister } from "react-hook-form";
 import CountryField, { isEuropeanCountry } from "./CountryField";
 
 type YourOrderSectionProps = {
     register: any,
     watch: any,
+    errors?: DeepMap<any, FieldError>,
     title: string,
     price: number,
     checkoutType: "personal" | "commercial"
 }
-export default function YourOrderSection({ register, watch, title, price, checkoutType }: YourOrderSectionProps) {
+export default function YourOrderSection({ register, watch, errors, title, price, checkoutType }: YourOrderSectionProps) {
     const licenses = watch("licenses")
     const country = watch("country")
 
@@ -66,9 +66,9 @@ export default function YourOrderSection({ register, watch, title, price, checko
 
     return (
         <div className="divider divide-y pt-10">
-            <div>
-                <CountryField register={register} />
+            <div className="flex items-start justify-between gap-4">
                 <h4>Your Order</h4>
+                <CountryField register={register} errors={errors} />
             </div>
             <ul className="p-4">
                 <div className="float-right text-gray-700">€ {price}.00</div>

@@ -32,9 +32,6 @@ export const Index = () => {
         <DashboardView />
         <NativeKubernetes />
         <ChartRepositories />
-        {/* Hack to disable Hubspot to collect info from non-HubSpot forms */}
-        {/* reference: https://community.hubspot.com/t5/Lead-Capture-Tools/Ignore-a-specific-non-Hubspot-form-from-being-collected/m-p/367909/highlight/true#M4606 */}
-        <span id="CollectedForms-5061743"></span>
         <Footer />
       </div>
     </Layout>

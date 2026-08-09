@@ -1,11 +1,11 @@
 import CheckoutLayout from '@components/checkout/CheckoutLayout';
-import PaymentTabs from '@components/checkout/PaymentTabs';
 import YourOrderSection from '@components/checkout/YourOrderSection';
 import InputField2 from '@components/ui/form/InputField2';
 import { yupResolver } from '@hookform/resolvers/yup';
+import useCountryPrefill from '@utils/geo/useCountryPrefill';
 import licenseServer, { CheckoutForm } from '@utils/services/licenseServer';
 import getStripe from '@utils/stripe/getStripe';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -17,38 +17,39 @@ const schema = yup.object().shape({
   clientAddress: yup.string().required(),
   clientCity: yup.string().required(),
   clientPostalCode: yup.string().required(),
-  country: yup.string().optional(),
+  country: yup.string().required("Please select your country"),
   licenses: yup.number().positive().integer().required(),
 }).required();
 
 export default function Checkout() {
-  const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm<CheckoutForm>({
+  const { register, watch, handleSubmit, setValue, getValues, formState: { errors } } = useForm<CheckoutForm>({
     mode: 'onBlur',
     defaultValues: {
       licenses: 1,
+      country: "",
       type: "team",
       checkoutType: "commercial",
     },
     resolver: yupResolver(schema)
   });
   const [clicked, setClicked] = useState(false)
+  const [error, setError] = useState("")
+
+  useCountryPrefill(setValue, getValues)
 
   async function onSubmit(data: CheckoutForm) {
     setClicked(true)
-    const stripe = await getStripe()
-    var code: any
-    code = await licenseServer.createSession(data)
-    await stripe!.redirectToCheckout({ sessionId: code.id })
+    setError("")
+    try {
+      const stripe = await getStripe()
+      const code: any = await licenseServer.createSession(data)
+      await stripe!.redirectToCheckout({ sessionId: code.id })
+    } catch (e: any) {
+      setError(e?.message ?? "Something went wrong, please try again.")
+      setClicked(false)
+    }
     return false
   }
-
-  useEffect(() => {
-    fetch('https://ipapi.co/json/')
-      .then(res => res.json())
-      .then(response => {
-        setValue("country", response.country_name)
-      })
-  }, [setValue])
 
   return (
     <CheckoutLayout title="Kubernetic Team subscription" showTabs={false} checkoutType="commercial">
@@ -63,11 +64,12 @@ export default function Checkout() {
           <InputField2 errors={errors} register={register} name="clientPostalCode" required label="Postal code / ZIP" />
         </div>
 
-        <YourOrderSection title="Kubernetic Team User Seats (yearly price)" price={96} register={register} watch={watch} checkoutType="commercial" />
+        <YourOrderSection title="Kubernetic Team User Seats (yearly price)" price={96} register={register} watch={watch} errors={errors} checkoutType="commercial" />
         <div className="pt-20 pb-20">
-          <button type="submit" value="submit" className="btn btn-blue btn-popup float-right rounded py-3 px-8 w-40"  >
+          <button type="submit" value="submit" disabled={clicked} className="btn btn-blue btn-popup float-right rounded py-3 px-8 w-40 disabled:opacity-60"  >
             {clicked ? "Loading..." : "Next"}
           </button>
+          {error && <p className="clear-both float-right pt-2 text-sm text-red-600 italic">{error}</p>}
         </div>
       </form>
     </CheckoutLayout >
