@@ -93,3 +93,4 @@ addition to the committed `.env.production` defaults.
 ## Assets
 
 GIFs are created in 1500x840.
+
