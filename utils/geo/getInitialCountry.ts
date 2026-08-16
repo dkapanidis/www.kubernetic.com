@@ -1,4 +1,4 @@
-import { countryFromIsoCode } from '@components/checkout/countries'
+import { isValidCountry } from '@components/checkout/countries'
 import { getCountryForTimezone } from 'countries-and-timezones'
 
 /**
@@ -28,7 +28,8 @@ function fromTimezone(): string | undefined {
   try {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
     if (!timezone) return undefined
-    return countryFromIsoCode(getCountryForTimezone(timezone)?.id)
+    const code = getCountryForTimezone(timezone)?.id
+    return isValidCountry(code) ? code : undefined
   } catch {
     return undefined
   }
@@ -37,7 +38,7 @@ function fromTimezone(): string | undefined {
 function fromLocale(): string | undefined {
   try {
     const region = new Intl.Locale(navigator.language).region
-    return countryFromIsoCode(region)
+    return isValidCountry(region) ? region : undefined
   } catch {
     return undefined
   }

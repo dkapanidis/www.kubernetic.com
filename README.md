@@ -42,11 +42,15 @@ by design).
 `http://localhost:8080`, so checkout and trial flows need that service up to
 work end to end. Use `.env.local` (git-ignored) to override without committing.
 
-## Country prefill
+## Country
 
-The checkout country select is prefilled from the browser's IANA timezone
-(`Europe/Madrid` → Spain), falling back to the region of the browser's locale.
-This is synchronous and offline — see `utils/geo/getInitialCountry.ts`.
+The checkout country is an ISO 3166-1 alpha-2 code (`ES`, not `Spain`) — that is
+what the select submits to `kubernetic-admin`, and what Stripe expects for
+addresses and tax. The list lives in `components/checkout/countries.ts`.
+
+The field is prefilled from the browser's IANA timezone (`Europe/Madrid` → `ES`),
+falling back to the region of the browser's locale. This is synchronous and
+offline — see `utils/geo/getInitialCountry.ts`.
 
 It is only a guess (a VPN or a traveller will defeat it) and the field is
 validated on submit, so a wrong or missing guess never produces a bad order.
