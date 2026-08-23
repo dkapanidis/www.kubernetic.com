@@ -1,4 +1,6 @@
+import licenseServer from "@utils/services/licenseServer";
 import Link from "next/link";
+import { useState } from "react";
 import { CheckboxIcon, GroupIcon, UserIcon } from "./Icons";
 
 /**
@@ -60,7 +62,7 @@ function PricingColumnIndividual() {
         </ul>
       </div>
       <div className="py-6 px-10">
-        <PricingButton to="/payment/checkout/personal" title="Buy Desktop License" />
+        <BuyDesktopButton />
       </div>
     </div>
   )
@@ -167,5 +169,46 @@ function PricingButton({ to, title }: PricingButtonProps) {
     <Link href={to} className="btn btn-blue btn-popup inline-flex rounded py-3 w-full">
       <span>{title}</span>
     </Link>
+  )
+}
+
+/**
+ * Buy button for the Desktop license.
+ *
+ * It goes straight to Stripe. There is no form in front of it any more: name,
+ * billing address, VAT id, quantity and the tax that follows from them are all
+ * collected on Stripe's own page, which means one fewer step to abandon and one
+ * fewer place for our idea of the buyer to disagree with Stripe's.
+ *
+ * The click is a round trip to the license server, so the button reports what it
+ * is doing and stays disabled until the redirect happens or fails.
+ */
+function BuyDesktopButton() {
+  const [clicked, setClicked] = useState(false)
+  const [error, setError] = useState("")
+
+  async function buy() {
+    setClicked(true)
+    setError("")
+    try {
+      await licenseServer.startCheckout({ type: "desktop", licenses: 1 })
+    } catch (e: any) {
+      setError(e?.message ?? "Something went wrong, please try again.")
+      setClicked(false)
+    }
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={buy}
+        disabled={clicked}
+        className="btn btn-blue btn-popup inline-flex rounded py-3 w-full disabled:opacity-60"
+      >
+        <span>{clicked ? "Redirecting to checkout..." : "Buy Desktop License"}</span>
+      </button>
+      {error && <p className="pt-2 text-sm text-red-600 italic">{error}</p>}
+    </>
   )
 }

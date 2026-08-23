@@ -28,25 +28,35 @@ Other scripts:
 
 Environment is set per Next.js mode in the committed `.env.*` files. Only
 `NEXT_PUBLIC_*` values live here — they are shipped to the browser, so nothing
-secret belongs in them (the Stripe key is the *publishable* one, which is public
-by design).
+secret belongs in them.
 
 | Variable                             | Purpose                                                     |
 | ------------------------------------ | ----------------------------------------------------------- |
-| `NEXT_PUBLIC_LICENSESERVER_URL`      | `kubernetic-admin` endpoint that creates the Stripe Checkout session |
+| `NEXT_PUBLIC_LICENSESERVER_URL`      | `kubernetic-admin` endpoint that creates the Stripe Checkout session and returns its hosted URL |
 | `NEXT_PUBLIC_TRIAL_URL`              | `kubernetic-admin` endpoint that records a Team trial request |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key used to redirect to Checkout          |
 | `SITE_URL`                           | Base URL used by `next-sitemap` during `postbuild`           |
 
 `.env.development` points at a `kubernetic-admin` running locally on
 `http://localhost:8080`, so checkout and trial flows need that service up to
 work end to end. Use `.env.local` (git-ignored) to override without committing.
 
+## Checkout
+
+"Buy Desktop License" goes straight to Stripe. The page asks `kubernetic-admin`
+for a checkout session and redirects to the hosted URL it returns — there is no
+form in between. Name, billing address, VAT ID and the resulting tax are
+collected by Stripe and read back off the completed session when the webhook
+fulfils the sale, so the details on the invoice are the ones the buyer actually
+confirmed and the tax is the one they were actually charged.
+
+The Team page (`/payment/checkout/team`) still asks for a seat count first, then
+redirects the same way.
+
 ## Country
 
-The checkout country is an ISO 3166-1 alpha-2 code (`ES`, not `Spain`) — that is
-what the select submits to `kubernetic-admin`, and what Stripe expects for
-addresses and tax. The list lives in `components/checkout/countries.ts`.
+A country is an ISO 3166-1 alpha-2 code (`ES`, not `Spain`) — that is what the
+trial form submits to `kubernetic-admin`. The list lives in
+`components/checkout/countries.ts`.
 
 The field is prefilled from the browser's IANA timezone (`Europe/Madrid` → `ES`),
 falling back to the region of the browser's locale. This is synchronous and
