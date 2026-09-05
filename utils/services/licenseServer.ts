@@ -8,6 +8,7 @@
  * license server reads it all back off the completed session once they have paid.
  */
 
+import { CHECKOUT_EVENT, trackEvent } from '@utils/analytics/plausible'
 import getInitialCountry from '@utils/geo/getInitialCountry'
 
 export type CheckoutRequest = {
@@ -51,8 +52,15 @@ async function createSession(request: CheckoutRequest): Promise<CheckoutSession>
  *
  * A plain redirect rather than Stripe.js: the server already knows the URL, so
  * there is nothing for the client library to look up.
+ *
+ * The click is also reported to Plausible, before the round trip to the license
+ * server rather than after: the event has to be on its way before the page
+ * unloads, and a click the server then refuses is still a buyer who wanted to
+ * buy. The admin's funnel compares this count with the sessions the server
+ * created, so both sides must see the same click.
  */
 async function startCheckout(request: CheckoutRequest) {
+  trackEvent(CHECKOUT_EVENT, { type: request.type, licenses: request.licenses ?? 1 })
   const session = await createSession(request)
   window.location.href = session.url
 }
