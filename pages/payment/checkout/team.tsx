@@ -1,57 +1,49 @@
 import CheckoutLayout from '@components/checkout/CheckoutLayout';
-import YourOrderSection from '@components/checkout/YourOrderSection';
-import { yupResolver } from '@hookform/resolvers/yup';
-import licenseServer from '@utils/services/licenseServer';
+import paymentLinks from '@utils/services/paymentLinks';
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-
-const schema = yup.object().shape({
-  licenses: yup.number().positive().integer().required(),
-}).required();
-
-type TeamOrder = { licenses: number }
 
 /**
  * Team subscription checkout.
  *
- * All that is asked here is how many seats. The company name, billing address
- * and VAT ID used to be collected on this page and sent ahead of the buyer;
- * Stripe now collects them on its own checkout page and the license server reads
- * them back off the completed session, so there is nothing left to fill in first.
+ * Nothing is asked here any more. The seat count, company name, billing
+ * address and VAT ID are all entered on Stripe's own checkout page, which the
+ * Payment Link opens; the license server reads them back off the completed
+ * session. This page states the price and hands over.
  */
 export default function Checkout() {
-  const { register, watch, handleSubmit } = useForm<TeamOrder>({
-    mode: 'onBlur',
-    defaultValues: { licenses: 1 },
-    resolver: yupResolver(schema)
-  });
   const [clicked, setClicked] = useState(false)
   const [error, setError] = useState("")
 
-  async function onSubmit(data: TeamOrder) {
+  function buy() {
     setClicked(true)
     setError("")
     try {
-      await licenseServer.startCheckout({ type: "team", licenses: data.licenses })
+      paymentLinks.startCheckout("team")
     } catch (e: any) {
       setError(e?.message ?? "Something went wrong, please try again.")
       setClicked(false)
     }
-    return false
   }
 
   return (
     <CheckoutLayout title="Kubernetic Team subscription">
-      <form onSubmit={handleSubmit(onSubmit)} >
-        <YourOrderSection title="Kubernetic Team User Seats (yearly price)" price={96} register={register} watch={watch} />
-        <div className="pt-20 pb-20">
-          <button type="submit" value="submit" disabled={clicked} className="btn btn-blue btn-popup float-right rounded py-3 px-8 w-40 disabled:opacity-60"  >
-            {clicked ? "Loading..." : "Next"}
-          </button>
-          {error && <p className="clear-both float-right pt-2 text-sm text-red-600 italic">{error}</p>}
+      <div className="divider divide-y pt-10">
+        <h4>Your Order</h4>
+        <ul className="p-4">
+          <div className="float-right text-gray-700">€ 96.00</div>
+          <h5 className="italic">Kubernetic Team User Seats (yearly price, per seat)</h5>
+        </ul>
+        <div className="block p-4 text-sm italic text-gray-600">
+          Choose the number of seats on the next page. Taxes are calculated at checkout from
+          your billing address, and are not charged if you provide a valid EU VAT ID outside Spain.
         </div>
-      </form>
-    </CheckoutLayout >
+      </div>
+      <div className="pt-20 pb-20">
+        <button type="button" onClick={buy} disabled={clicked} className="btn btn-blue btn-popup float-right rounded py-3 px-8 disabled:opacity-60">
+          {clicked ? "Redirecting to checkout..." : "Continue to checkout"}
+        </button>
+        {error && <p className="clear-both float-right pt-2 text-sm text-red-600 italic">{error}</p>}
+      </div>
+    </CheckoutLayout>
   )
 }

@@ -32,25 +32,32 @@ secret belongs in them.
 
 | Variable                             | Purpose                                                     |
 | ------------------------------------ | ----------------------------------------------------------- |
-| `NEXT_PUBLIC_LICENSESERVER_URL`      | `kubernetic-admin` endpoint that creates the Stripe Checkout session and returns its hosted URL |
+| `NEXT_PUBLIC_DESKTOP_PAYMENT_LINK`   | Stripe Payment Link for the Desktop license                  |
+| `NEXT_PUBLIC_TEAM_PAYMENT_LINK`      | Stripe Payment Link for the Team subscription                |
 | `NEXT_PUBLIC_TRIAL_URL`              | `kubernetic-admin` endpoint that records a Team trial request |
 | `SITE_URL`                           | Base URL used by `next-sitemap` during `postbuild`           |
 
-`.env.development` points at a `kubernetic-admin` running locally on
-`http://localhost:8080`, so checkout and trial flows need that service up to
-work end to end. Use `.env.local` (git-ignored) to override without committing.
+`.env.development` points the trial form at a `kubernetic-admin` running locally
+on `http://localhost:8080`, and the Buy buttons at test-mode Payment Links.
+Use `.env.local` (git-ignored) to override without committing.
 
 ## Checkout
 
-"Buy Desktop License" goes straight to Stripe. The page asks `kubernetic-admin`
-for a checkout session and redirects to the hosted URL it returns — there is no
-form in between. Name, billing address, VAT ID and the resulting tax are
-collected by Stripe and read back off the completed session when the webhook
-fulfils the sale, so the details on the invoice are the ones the buyer actually
-confirmed and the tax is the one they were actually charged.
+Both Buy buttons go straight to Stripe through a Payment Link, one per product.
+Nothing is created on our side first: quantity, name, billing address, VAT ID
+and the resulting tax are collected by Stripe on its page and read back off the
+completed session by `kubernetic-admin`'s webhook, which issues the licenses.
+The click is reported to Plausible as the `Checkout` event (with the product
+as `type`) so the admin's funnel can lay clicks next to the sessions Stripe
+reports back.
 
-The Team page (`/payment/checkout/team`) still asks for a seat count first, then
-redirects the same way.
+The Payment Links carry the checkout configuration, so a new one must be made
+the same way. In the Stripe dashboard (or with the CLI, see `kubernetic-admin`'s
+PR history) each link needs: the product price with adjustable quantity,
+billing address collection **required**, tax ID collection on, automatic tax
+on, customer creation **always** (one-time price only), promotion codes
+allowed, and after completion a redirect to
+`https://kubernetic.com/payment/success?session_id={CHECKOUT_SESSION_ID}`.
 
 ## Country
 

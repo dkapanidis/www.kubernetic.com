@@ -1,4 +1,4 @@
-import licenseServer from "@utils/services/licenseServer";
+import paymentLinks from "@utils/services/paymentLinks";
 import Link from "next/link";
 import { useState } from "react";
 import { CheckboxIcon, GroupIcon, UserIcon } from "./Icons";
@@ -175,23 +175,24 @@ function PricingButton({ to, title }: PricingButtonProps) {
 /**
  * Buy button for the Desktop license.
  *
- * It goes straight to Stripe. There is no form in front of it any more: name,
- * billing address, VAT id, quantity and the tax that follows from them are all
- * collected on Stripe's own page, which means one fewer step to abandon and one
- * fewer place for our idea of the buyer to disagree with Stripe's.
+ * It goes straight to Stripe, through the product's Payment Link. There is no
+ * form in front of it and no round trip to our server: quantity, name, billing
+ * address, VAT id and the tax that follows from them are all collected on
+ * Stripe's own page, which means one fewer step to abandon and one fewer place
+ * for our idea of the buyer to disagree with Stripe's.
  *
- * The click is a round trip to the license server, so the button reports what it
- * is doing and stays disabled until the redirect happens or fails.
+ * The click is reported to Plausible before the redirect, and the button stays
+ * disabled while the page hands over.
  */
 function BuyDesktopButton() {
   const [clicked, setClicked] = useState(false)
   const [error, setError] = useState("")
 
-  async function buy() {
+  function buy() {
     setClicked(true)
     setError("")
     try {
-      await licenseServer.startCheckout({ type: "desktop", licenses: 1 })
+      paymentLinks.startCheckout("desktop")
     } catch (e: any) {
       setError(e?.message ?? "Something went wrong, please try again.")
       setClicked(false)
