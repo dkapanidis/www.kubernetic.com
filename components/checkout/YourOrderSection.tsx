@@ -1,85 +1,41 @@
-import { useEffect, useState } from "react";
-import { DeepMap, FieldError, UseFormRegister } from "react-hook-form";
-import CountryField from "./CountryField";
-import { isEuropeanCountry } from "./countries";
+import { UseFormRegister } from "react-hook-form";
 
+/**
+ * The order summary shown before the buyer leaves for Stripe.
+ *
+ * It shows the quantity and what that comes to at list price, and stops there.
+ * The tax is deliberately not computed here: Stripe works it out from the
+ * billing address and VAT id the buyer gives it on the checkout page, which is
+ * information this page does not have and no longer asks for. Guessing a figure
+ * that Stripe would then contradict is worse than saying it is calculated next.
+ */
 type YourOrderSectionProps = {
-    register: any,
+    register: UseFormRegister<any>,
     watch: any,
-    errors?: DeepMap<any, FieldError>,
     title: string,
     price: number,
-    checkoutType: "personal" | "commercial"
 }
-export default function YourOrderSection({ register, watch, errors, title, price, checkoutType }: YourOrderSectionProps) {
+export default function YourOrderSection({ register, watch, title, price }: YourOrderSectionProps) {
     const licenses = watch("licenses")
-    const country = watch("country")
-
-    // const taxPercent = watch("taxPercent")
-    const [taxPercent, setTaxPercent] = useState(0)
-    const [subtotal, setSubtotal] = useState(0)
-    const [total, setTotal] = useState(0)
-    const [tax, setTax] = useState(0)
-
-    // Calculate TaxPercent
-    useEffect(() => {
-        // COMMERCIAL LICENSES
-
-        // On Spain (ES) Tax is not excluded, so we collect 21%
-        if (checkoutType === "commercial" && country === "ES") {
-            setTaxPercent(21)
-            return
-        }
-        // On other EU countries we don't collect Tax
-        if (checkoutType === "commercial" && isEuropeanCountry(country)) {
-            setTaxPercent(0)
-            return
-        }
-        // On the rest of the countries we don't collect Tax
-        if (checkoutType === "commercial") {
-            setTaxPercent(0)
-            return
-        }
-        // PERSONAL LICENSES
-        // For personal Licenses (without TAX ID), we collect 21%
-        setTaxPercent(21)
-        return
-    }, [country, checkoutType])
-
-    // Calculate Subtotal
-    useEffect(() => {
-        if (Number.isNaN(licenses)) {
-            setSubtotal(0)
-        } else {
-            setSubtotal(licenses * price)
-        }
-    }, [licenses, price])
-
-    // Calculate Tax
-    useEffect(() => {
-        setTax(subtotal * taxPercent / 100)
-    }, [subtotal, taxPercent])
-
-    // Calculate Total
-    useEffect(() => {
-        setTotal(subtotal + tax)
-    }, [subtotal, tax])
+    const subtotal = Number.isNaN(licenses) ? 0 : licenses * price
 
     return (
         <div className="divider divide-y pt-10">
-            <div className="flex items-start justify-between gap-4">
-                <h4>Your Order</h4>
-                <CountryField register={register} errors={errors} />
-            </div>
+            <h4>Your Order</h4>
             <ul className="p-4">
                 <div className="float-right text-gray-700">€ {price}.00</div>
                 <h5 className="italic">{title}</h5>
                 <LicensesField register={register} />
             </ul>
             <div className="block p-4">
-                <SubtotalSum subtotal={subtotal} />
-                <TaxSum taxPercent={taxPercent} tax={tax} />
-                <TotalSum total={total} />
+                <div className="pt-2">
+                    <div className="float-right text-gray-700">€ {subtotal}.00</div>
+                    <div className="flex-grow">Subtotal</div>
+                </div>
+                <div className="pt-2 text-sm italic text-gray-600">
+                    Taxes are calculated at checkout from your billing address, and are
+                    not charged if you provide a valid EU VAT ID outside Spain.
+                </div>
             </div>
         </div>
     )
@@ -104,32 +60,3 @@ function LicensesField({ register }: { register: UseFormRegister<any> }) {
         </div>
     )
 }
-
-
-function SubtotalSum({ subtotal }: { subtotal: number }) {
-    return (
-        <div className="pt-2">
-            <div className="float-right text-gray-700">€ {subtotal}.00</div>
-            <div className="flex-grow">Subtotal</div>
-        </div>
-    )
-}
-
-function TaxSum({ taxPercent, tax }: { taxPercent: number, tax: number }) {
-    return (
-        <div className="pt-2">
-            <div className="float-right text-gray-700">€ {tax.toFixed(2)}</div>
-            <div className="flex-grow">Tax ({taxPercent}%)</div>
-        </div>
-    )
-}
-
-function TotalSum({ total }: { total: number }) {
-    return (
-        <div className="pt-2">
-            <h4 className="float-right text-gray-700">€ {total.toFixed(2)}</h4>
-            <h4 className="italic">Total</h4>
-        </div>
-    )
-}
-
