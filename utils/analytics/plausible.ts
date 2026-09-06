@@ -11,8 +11,10 @@
 
 type PlausibleProps = Record<string, string | number | boolean>
 
+type PlausibleOptions = { props?: PlausibleProps, callback?: () => void }
+
 type PlausibleFn = {
-  (event: string, options?: { props?: PlausibleProps }): void
+  (event: string, options?: PlausibleOptions): void
   q?: IArguments[]
 }
 
@@ -25,13 +27,33 @@ declare global {
 /** The Buy click: the checkout goal the admin's funnel reads. */
 export const CHECKOUT_EVENT = 'Checkout'
 
-export function trackEvent(event: string, props?: PlausibleProps) {
-  if (typeof window === 'undefined') return
+export function trackEvent(event: string, props?: PlausibleProps, callback?: () => void) {
+  if (typeof window === 'undefined') {
+    callback?.()
+    return
+  }
   if (!window.plausible) {
     const queued: PlausibleFn = function () {
       ;(queued.q = queued.q || []).push(arguments)
     }
     window.plausible = queued
   }
-  window.plausible(event, props ? { props } : undefined)
+  window.plausible(event, { props, callback })
+}
+
+/**
+ * Reports an event and then leaves the page. Navigating away cancels a request
+ * still in flight, so the redirect waits for Plausible's callback — with a
+ * short ceiling, because a blocked tracker never calls back and the buyer must
+ * not be left on a dead button.
+ */
+export function trackThenNavigate(event: string, props: PlausibleProps, href: string) {
+  let done = false
+  const go = () => {
+    if (done) return
+    done = true
+    window.location.href = href
+  }
+  trackEvent(event, props, go)
+  window.setTimeout(go, 400)
 }
