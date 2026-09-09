@@ -1,5 +1,10 @@
 // next.config.js
 module.exports = {
+  // allow loading the dev server from this machine's LAN address (phone, other devices)
+  allowedDevOrigins: Object.values(require('os').networkInterfaces())
+    .flat()
+    .filter((i) => i && i.family === 'IPv4' && !i.internal)
+    .map((i) => i.address),
   async redirects() {
     return [
       {
