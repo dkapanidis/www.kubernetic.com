@@ -22,6 +22,12 @@ module.exports = {
         destination: '/team/trial',
         permanent: true,
       },
+      // Retired checkout pages, still listed in search results.
+      {
+        source: '/payment/checkout/:plan(personal|commercial)',
+        destination: '/pricing',
+        permanent: true,
+      },
     ]
   },
 }
