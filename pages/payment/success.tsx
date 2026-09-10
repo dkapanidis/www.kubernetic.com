@@ -5,7 +5,7 @@ import React from "react";
 
 export default function SuccessfulPayment() {
   return (
-    <Layout title="Payment Success">
+    <Layout title="Payment Success" noindex>
       <HeaderSolid />
       <div className="p-40 text-center">
         <h2>We received payment for your Kubernetic app. Thanks for your business!</h2>

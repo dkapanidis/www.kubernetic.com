@@ -5,7 +5,7 @@ import React from "react";
 
 export default function CheckoutLayout({ children, title }: { children: any, title: string }) {
     return (
-        <Layout title="Payment Checkout">
+        <Layout title="Payment Checkout" noindex>
             <HeaderSolid />
             <div className="pt-4 pb-10">
                 <div className="pl-20 pr-20 md:px-32 lg:px-64">

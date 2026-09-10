@@ -43,13 +43,13 @@ All references to `betav1` APIs have been upgraded to stable `v1` versions. More
 
 ### Context Menu on Logs
 
-Logs now have a context menu on mouse right click, which provides all the existing functionality plus the ability to Select All, Copy and Save the logs to a file.context
+Logs now have a context menu on mouse right click, which provides all the existing functionality plus the ability to Select All, Copy and Save the logs to a file.
 
 ![context-menu-logs](/blog/release-4-3-0/context-menu-logs.gif)
 
 ### Integration with FluxCD
 
-Lastly and more important there is now an integration with FluxCD. You can read more about the integration on a separate blog entry for the FluxCD tutorial [here](/flux-tutorial).
+Lastly and more important there is now an integration with FluxCD. You can read more about the integration on a separate blog entry for the FluxCD tutorial [here](/blog/fluxcd-tutorial).
 
 You can now:
 

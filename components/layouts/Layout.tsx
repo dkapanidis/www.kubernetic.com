@@ -3,8 +3,8 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import TwitterConvTrkr from "react-twitter-conversion-tracker";
 
-type LayoutProps = { children: any, title: string }
-export default function Layout({ children, title }: LayoutProps) {
+type LayoutProps = { children: any, title: string, noindex?: boolean }
+export default function Layout({ children, title, noindex }: LayoutProps) {
   const router = useRouter()
   const canonicalUrl = `https://www.kubernetic.com${router.asPath.split('?')[0]}`
 
@@ -23,6 +23,7 @@ export default function Layout({ children, title }: LayoutProps) {
         <meta httpEquiv="Content-Language" content="en" />
         <meta name="google-site-verification" content="" />
 
+        {noindex && <meta name="robots" content="noindex" />}
         <link rel="canonical" href={canonicalUrl} />
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
