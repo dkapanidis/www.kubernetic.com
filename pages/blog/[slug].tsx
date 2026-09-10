@@ -22,7 +22,7 @@ const Post = ({ post, previous, next, toc }: Props) => {
         return <ErrorPage statusCode={404} />;
     }
     return (
-        <Layout title="Blog">
+        <Layout title={post.title} description={post.excerpt}>
             <HeaderSolid />
             <div className="flex">
                 <div className="flex-1" />

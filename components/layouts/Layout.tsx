@@ -3,8 +3,10 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import TwitterConvTrkr from "react-twitter-conversion-tracker";
 
-type LayoutProps = { children: any, title: string, noindex?: boolean }
-export default function Layout({ children, title, noindex }: LayoutProps) {
+const defaultDescription = "Kubernetic is a brand new Desktop Client for Kubernetes that lets developers and ops manage their Kubernetes cluster(s) through a UI interface in a very simple way."
+
+type LayoutProps = { children: any, title: string, description?: string, noindex?: boolean }
+export default function Layout({ children, title, description = defaultDescription, noindex }: LayoutProps) {
   const router = useRouter()
   const canonicalUrl = `https://www.kubernetic.com${router.asPath.split('?')[0]}`
 
@@ -17,7 +19,7 @@ export default function Layout({ children, title, noindex }: LayoutProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>{`Kubernetic - ${title}`}</title>
+        <title>{title.startsWith("Kubernetic") ? title : `Kubernetic - ${title}`}</title>
 
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta httpEquiv="Content-Language" content="en" />
@@ -41,13 +43,13 @@ export default function Layout({ children, title, noindex }: LayoutProps) {
 
         <meta name="HandheldFriendly" content="True" />
         <meta name="MobileOptimized" content="320" />
-        <meta name="description" content="Kubernetic is a brand new Desktop Client for Kubernetes that lets developers and ops manage their Kubernetes cluster(s) through a UI interface in a very simple way." />
+        <meta name="description" content={description} />
         <meta name="keywords" content="" />
 
         <meta name="twitter:card" content="photo" />
         <meta name="twitter:url" content="https://kubernetic.com/" />
         <meta name="twitter:title" content="Kubernetic - The Kubernetes Desktop Client" />
-        <meta name="twitter:description" content="Kubernetic is a brand new Desktop Client for Kubernetes that lets developers and ops manage their Kubernetes cluster(s) through a UI interface in a very simple way." />
+        <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content="https://kubernetic.com/images/og-image.webp" />
         <meta name="twitter:image:width" content="600" />
         <meta name="twitter:image:height" content="315" />
@@ -56,7 +58,7 @@ export default function Layout({ children, title, noindex }: LayoutProps) {
 
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Kubernetic - The Kubernetes Desktop Client" />
-        <meta property="og:description" content="Kubernetic is a brand new Desktop Client for Kubernetes that lets developers and ops manage their Kubernetes cluster(s) through a UI interface in a very simple way." />
+        <meta property="og:description" content={description} />
         <meta property="og:url" content="https://www.kubernetic.com" />
         <meta property="og:image" content="https://kubernetic.com/images/og-image.webp" />
         <meta property="og:image:width" content="600" />
