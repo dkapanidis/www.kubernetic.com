@@ -3,7 +3,7 @@
 The marketing site and checkout flow for [kubernetic.com](https://www.kubernetic.com/).
 
 Built with [Next.js](https://nextjs.org/) (Pages Router) and [Tailwind CSS](https://tailwindcss.com/),
-deployed on [Vercel](https://vercel.com/dkapanidis/www-kubernetic-com).
+deployed on [Cloudflare](https://workers.cloudflare.com/) (see Deployment).
 
 ## Requirements
 
@@ -95,21 +95,25 @@ types/        Shared TypeScript types
 utils/        Service clients (kubernetic-admin, Stripe) and helpers
 ```
 
-## Branches
-
-* `master` is live.
-* `develop` is the next release.
-
 ## Deployment
 
-Continuous deployment is handled by
-[Vercel](https://vercel.com/dkapanidis/www-kubernetic-com):
+The site is a static export (`output: 'export'` → `out/`) served by Cloudflare
+Workers static assets, configured in `wrangler.jsonc`.
 
-* `master` → https://www.kubernetic.com/
-* pull requests → a Preview deployment with its own URL
+`.github/workflows/ci.yml` builds every pull request and push; a push to `main`
+also runs `wrangler deploy` to https://www.kubernetic.com/. It needs the repo
+secrets `CLOUDFLARE_API_TOKEN` (Workers Scripts: Edit, plus Zone: Workers
+Routes: Edit on `kubernetic.com`) and `CLOUDFLARE_ACCOUNT_ID`.
 
-Production environment variables are managed in the Vercel project settings, in
-addition to the committed `.env.production` defaults.
+Redirects live in `public/_redirects` — Next's `redirects()` does not apply to
+a static export. Environment comes only from the committed `.env.production`.
+
+Preview the production build locally:
+
+```shell
+bun run build
+bunx wrangler dev   # http://localhost:8787
+```
 
 ## Assets
 

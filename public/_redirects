@@ -1,0 +1,6 @@
+/blog/secure-kubernetic-on-premise-with-pomerium /blog/secure-kubernetic-on-premises-with-pomerium 301
+/blog/running-securely-kubernetic-on-premise-with-identity-aware-proxy /blog/running-securely-kubernetic-on-premises-with-identity-aware-proxy 301
+/enterprise/trial /team/trial 301
+# Retired checkout pages, still listed in search results.
+/payment/checkout/personal /pricing 301
+/payment/checkout/commercial /pricing 301
