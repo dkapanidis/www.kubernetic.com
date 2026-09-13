@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from 'next/router'
 
 const links: HeaderLinkProps[] = [
-  { to: "/#pricing", title: "Pricing" },
+  { to: "/pricing", title: "Pricing" },
   { to: "https://docs.kubernetic.com", title: "Docs" },
   { to: "https://docs.kubernetic.com/tutorials/", title: "Tutorials" },
   { to: "/blog", title: "Blog" },
