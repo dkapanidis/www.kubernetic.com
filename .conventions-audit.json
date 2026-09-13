@@ -1,0 +1,18 @@
+{
+  "last_audited": "2026-09-13",
+  "skill_commit": "ec815081a2fe7eeb1e8377978617b6cf5eadccf7",
+  "proposed": [
+    {
+      "gap": "missing-renovate-json",
+      "pr": 3,
+      "status": "open",
+      "date": "2026-09-13"
+    }
+  ],
+  "open_gaps": [
+    "cloudflare-not-flux-gitops-deploy: .github/workflows/ci.yml's deploy job pushes straight to Cloudflare via `wrangler deploy` (CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID secrets), not GitHub Packages + a Flux manifest change in harbur/kubernetic-apps, where skills/infra-deploy/SKILL.md's Delivery line says 'GitHub Actions -> GitHub Packages -> Flux. Nothing is deployed by hand.' This is a fully static export (wrangler.jsonc: 'Static assets only: no Worker script') with no Kubernetes workload behind it, so re-platforming it onto the container/Flux pipeline may not even be appropriate - flagging for a judgment call rather than assuming it should change.",
+    "no-lint-step-in-ci: package.json has a `lint` script (`next lint`) but .github/workflows/ci.yml's build job never runs it, so lint issues aren't caught by CI. Small, mechanical - good next candidate.",
+    "frontend-not-atomic-design: components/ is organized by feature/section (Header, Footer, forms, layouts, blog, ...) with @mui/material + @emotion, not skills/frontend-react/SKILL.md's atoms/molecules/organisms/templates split or shadcn/ui. Same class of gap already recorded (and deferred as too large) in harbur/kubernetic-frontend's ledger - large, invasive rewrite, not a small coherent PR."
+  ],
+  "clean": false
+}
