@@ -30,7 +30,7 @@ export default function FeatureSection({ title, img, alt, children }: FeatureSec
           <Image
             src={img}
             alt={alt}
-            className="shadow-2xl"
+            className="shadow-2xl w-full h-auto"
             width={800}
             height={500}
             unoptimized={img.endsWith(".gif")}
@@ -56,7 +56,7 @@ export function FeatureBlackSection({ title, img, alt, children }: FeatureBlackS
           <Image
             src={img}
             alt={alt}
-            className="shadow-2xl"
+            className="shadow-2xl w-full h-auto"
             width={800}
             height={500}
             unoptimized={img.endsWith(".gif")}
